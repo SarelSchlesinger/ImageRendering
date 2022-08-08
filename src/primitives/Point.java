@@ -37,18 +37,19 @@ public class Point {
         return new Point(this.xyz.add(point.xyz));
     }
 
-    public Vector subtract(Point point){
+    public Vector subtract(Point point) {
         return new Vector(this.xyz.subtract(point.xyz));
     }
 
-    public double distanceSquared(Point point){
+    public double distanceSquared(Point point) {
         return  (this.xyz.d1 - point.xyz.d1) * (this.xyz.d1 - point.xyz.d1) +
                 (this.xyz.d2 - point.xyz.d2) * (this.xyz.d2 - point.xyz.d2) +
                 (this.xyz.d3 - point.xyz.d3) * (this.xyz.d3 - point.xyz.d3);
     }
 
-    public double distance(Point point){
+    public double distance(Point point) {
         return Math.sqrt(this.distanceSquared(point));
     }
+
 }
 
