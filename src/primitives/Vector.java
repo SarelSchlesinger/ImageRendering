@@ -16,6 +16,16 @@ public class Vector extends Point {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector{} " + super.toString();
+    }
+
     public Vector add(Vector vector) {
         return new Vector(this.xyz.add(vector.xyz));
     }
