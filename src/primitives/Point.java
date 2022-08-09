@@ -2,21 +2,17 @@ package primitives;
 
 import java.util.Objects;
 
-/**
- * This class will serve all primitive classes by basic point methods
- */
-
 public class Point {
-    /**
-     * Immutable field which holds three-dimensional point
-     */
+
     final Double3 xyz;
 
     public Point(double x, double y, double z) {
+
         this.xyz = new Double3(x, y, z);
     }
 
     public Point(Double3 xyz) {
+
         this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3);
     }
 
