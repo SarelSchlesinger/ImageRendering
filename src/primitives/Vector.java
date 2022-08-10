@@ -30,7 +30,7 @@ public class Vector extends Point {
      *  throw an exception if vector == (0,0,0)
      */
     public void zeroVector() {
-        if (this.dotProduct(new Vector(1, 1, 1)) == 0) {
+        if (Util.isZero(this.dotProduct(new Vector(1, 1, 1)))) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
     }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PointTests {
+class PointTest {
 
     Point p1 = new Point(1,2,3);
     Point p2 = new Point(10,11,12);
