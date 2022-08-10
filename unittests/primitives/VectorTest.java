@@ -12,7 +12,7 @@ class VectorTest {
     @Test
     void VectorTest() {
         assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0).zeroVector(),"vector can't be (0,0,0)");
-        assertThrows(IllegalArgumentException.class, () -> new Vector(new Double3(0,0,0)).zeroVector(),"vector can't be (0,0,0)");
+        assertThrows(IllegalArgumentException.class, () -> new Vector(Double3.ZERO).zeroVector(),"vector can't be (0,0,0)");
     }
 
     @Test
