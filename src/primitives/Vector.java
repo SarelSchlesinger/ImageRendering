@@ -26,6 +26,15 @@ public class Vector extends Point {
         return "Vector{} " + super.toString();
     }
 
+    /**
+     *  throw an exception if vector == (0,0,0)
+     */
+    public void zeroVector() {
+        if (this.dotProduct(new Vector(1, 1, 1)) == 0) {
+            throw new IllegalArgumentException("Cannot get vector of zero");
+        }
+    }
+
     public Vector add(Vector vector) {
         return new Vector(this.xyz.add(vector.xyz));
     }
@@ -46,7 +55,7 @@ public class Vector extends Point {
     public Vector crossProduct(Vector vector) {
         return  new Vector(this.xyz.d2 * vector.xyz.d3 - this.xyz.d3 * vector.xyz.d2,
                            this.xyz.d1 * vector.xyz.d3 - this.xyz.d3 * vector.xyz.d1,
-                           this.xyz.d1 * vector.xyz.d2 - this.xyz.d2 * vector.xyz.d3);
+                           this.xyz.d1 * vector.xyz.d2 - this.xyz.d2 * vector.xyz.d1);
     }
 
     public double lengthSquared() {
@@ -60,6 +69,7 @@ public class Vector extends Point {
     }
 
     public Vector normalize() {
+
         return new Vector(this.xyz.reduce(this.length()));
     }
 
