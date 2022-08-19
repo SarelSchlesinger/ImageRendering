@@ -17,6 +17,9 @@ public class Point {
 
     public Point(Double3 xyz) {
 
+        if (!(xyz instanceof Double3)) {
+            throw new IllegalArgumentException("The argument must be of type Double3");
+        }
 
         this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3);
     }

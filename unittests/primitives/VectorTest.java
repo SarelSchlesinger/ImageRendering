@@ -10,12 +10,6 @@ class VectorTest {
     Vector v2 = new Vector(2,4,6);
 
     @Test
-    void VectorTest() {
-        assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0).zeroVector(),"vector can't be (0,0,0)");
-        assertThrows(IllegalArgumentException.class, () -> new Vector(Double3.ZERO).zeroVector(),"vector can't be (0,0,0)");
-    }
-
-    @Test
     void testAdd() {
         assertEquals(v2,v1.add(v1),"add() is incorrect");
         assertThrows(IllegalArgumentException.class, () -> v1.add(new Vector(-1,-2,-3)).zeroVector(),

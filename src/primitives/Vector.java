@@ -18,7 +18,7 @@ public class Vector extends Point {
         super(xyz);
 
         if (!(xyz instanceof Double3)) {
-            throw new IllegalArgumentException("The argument must be of Double3 type");
+            throw new IllegalArgumentException("The argument must be of type Double3");
         }
 
         if (this.equals(Double3.ZERO)) {
