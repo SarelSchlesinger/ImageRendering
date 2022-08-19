@@ -8,6 +8,15 @@ public class Ray {
     final private Vector direction;
 
     public Ray(Point p0, Vector direction) {
+
+        if (!(p0 instanceof Point)) {
+            throw new IllegalArgumentException("The p0 must be of Point type");
+        }
+
+        if (!(direction instanceof Vector)) {
+            throw new IllegalArgumentException("The direction must be of Vector type");
+        }
+
         this.p0 = p0;
         this.direction = direction.normalize();
     }

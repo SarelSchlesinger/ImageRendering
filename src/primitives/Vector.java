@@ -4,6 +4,11 @@ public class Vector extends Point {
 
     public Vector(double x, double y, double z) {
         super(x, y, z);
+
+        if ((x < 0) || (y < 0) || (z < 0)) {
+            throw new IllegalArgumentException("Arguments can't be negative numbers");
+        }
+
         if (this.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
@@ -11,6 +16,11 @@ public class Vector extends Point {
 
     public Vector(Double3 xyz) {
         super(xyz);
+
+        if (!(xyz instanceof Double3)) {
+            throw new IllegalArgumentException("The argument must be of Double3 type");
+        }
+
         if (this.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
