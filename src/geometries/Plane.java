@@ -14,7 +14,7 @@ public class Plane implements Geometry {
             throw new IllegalArgumentException("Arguments must be of type Point");
         }
 
-        if ((p1 == p2) || (p1 == p3) || (p2 == p3)) {
+        if ((p1.equals(p2)) || (p1.equals(p3)) || (p2.equals(p3))) {
             throw new IllegalArgumentException("All points should be different from each other");
         }
 
@@ -23,7 +23,7 @@ public class Plane implements Geometry {
         }
 
         this.p0 = p1;
-        this.normal = null;
+        this.normal = p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
 
     }
 
@@ -43,7 +43,7 @@ public class Plane implements Geometry {
     @Override
     // getNormal method
     public Vector getNormal(Point point) {
-        return null;
+        return this.normal;
     }
 
     // normal getter

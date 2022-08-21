@@ -23,14 +23,15 @@ public class Sphere implements Geometry {
     }
 
     public Vector getNormal(Point point) {
-        return null;
+
+        return point.subtract(this.center).normalize();
     }
 
     public Point getCenter() {
-        return center;
+        return this.center;
     }
 
     public double getRadius() {
-        return radius;
+        return this.radius;
     }
 }
