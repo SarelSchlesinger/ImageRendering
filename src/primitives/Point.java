@@ -8,10 +8,6 @@ public class Point {
 
     public Point(double x, double y, double z) {
 
-        if ((x < 0) || (y < 0) || (z < 0)) {
-            throw new IllegalArgumentException("Arguments can't be negative numbers");
-        }
-
         this.xyz = new Double3(x, y, z);
     }
 
@@ -22,6 +18,18 @@ public class Point {
         }
 
         this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3);
+    }
+
+    public double getX() {
+        return this.xyz.d1;
+    }
+
+    public double getY() {
+        return this.xyz.d2;
+    }
+
+    public double getZ() {
+        return this.xyz.d3;
     }
 
     @Override

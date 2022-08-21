@@ -9,6 +9,15 @@ public class Sphere implements Geometry {
     final double radius;
 
     public Sphere(Point center, double radius) {
+
+        if (!(center instanceof Point)) {
+            throw new IllegalArgumentException("center must be of type Point");
+        }
+
+        if (radius <= 0) {
+            throw new IllegalArgumentException("The radius must be greater than 0");
+        }
+
         this.center = center;
         this.radius = radius;
     }

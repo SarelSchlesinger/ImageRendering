@@ -5,10 +5,6 @@ public class Vector extends Point {
     public Vector(double x, double y, double z) {
         super(x, y, z);
 
-        if ((x < 0) || (y < 0) || (z < 0)) {
-            throw new IllegalArgumentException("Arguments can't be negative numbers");
-        }
-
         if (this.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }

@@ -9,11 +9,33 @@ public class Plane implements Geometry {
     final Vector normal;
 
     public Plane(Point p1, Point p2, Point p3) {
+
+        if ((!(p1 instanceof Point)) || (!(p2 instanceof Point)) || (!(p3 instanceof Point))) {
+            throw new IllegalArgumentException("Arguments must be of type Point");
+        }
+
+        if ((p1 == p2) || (p1 == p3) || (p2 == p3)) {
+            throw new IllegalArgumentException("All points should be different from each other");
+        }
+
+        if ((p1.subtract(p2).crossProduct(p1.subtract(p3))).equals(new Vector(0,0,0))) {
+            throw new IllegalArgumentException("The points should not be on the same line");
+        }
+
         this.p0 = p1;
         this.normal = null;
+
     }
 
     public Plane(Point p0, Vector normal) {
+
+        if (!(p0 instanceof Point)) {
+            throw new IllegalArgumentException("p0 must be of type Point");
+        }
+
+        if (!(normal instanceof Vector)) {
+            throw new IllegalArgumentException("The p0 must be of type Vector");
+        }
         this.p0 = p0;
         this.normal = normal.normalize();
     }
@@ -32,6 +54,5 @@ public class Plane implements Geometry {
     public Point getP0() {
         return p0;
     }
-
 
 }

@@ -10,6 +10,7 @@ class PointTest {
     Point p2 = new Point(10,11,12);
     Vector v = new Vector(1,2,3);
 
+
     @Test
     void testAdd() {
         assertEquals(p1.add(new Point(9,9,9)),p2,"add() is incorrect");
