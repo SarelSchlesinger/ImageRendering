@@ -10,8 +10,8 @@ public class Sphere implements Geometry {
 
     public Sphere(Point center, double radius) {
 
-        if (!(center instanceof Point)) {
-            throw new IllegalArgumentException("center must be of type Point");
+        if (center == null) {
+            throw new IllegalArgumentException("center cannot be null");
         }
 
         if (radius <= 0) {

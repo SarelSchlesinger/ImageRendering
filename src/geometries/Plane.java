@@ -10,8 +10,8 @@ public class Plane implements Geometry {
 
     public Plane(Point p1, Point p2, Point p3) {
 
-        if ((!(p1 instanceof Point)) || (!(p2 instanceof Point)) || (!(p3 instanceof Point))) {
-            throw new IllegalArgumentException("Arguments must be of type Point");
+        if ((p1 == null) || (p2 == null) || (p3 == null)) {
+            throw new IllegalArgumentException("Arguments cannot be null");
         }
 
         if ((p1.equals(p2)) || (p1.equals(p3)) || (p2.equals(p3))) {
@@ -29,12 +29,12 @@ public class Plane implements Geometry {
 
     public Plane(Point p0, Vector normal) {
 
-        if (!(p0 instanceof Point)) {
-            throw new IllegalArgumentException("p0 must be of type Point");
+        if (p0 == null) {
+            throw new IllegalArgumentException("p0 cannot be null");
         }
 
-        if (!(normal instanceof Vector)) {
-            throw new IllegalArgumentException("The p0 must be of type Vector");
+        if (normal == null) {
+            throw new IllegalArgumentException("The normal cannot be null");
         }
         this.p0 = p0;
         this.normal = normal.normalize();

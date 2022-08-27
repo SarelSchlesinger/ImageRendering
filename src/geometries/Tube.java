@@ -12,8 +12,8 @@ public class Tube implements Geometry {
 
     public Tube(Ray axisRay, double radius) {
 
-        if (!(axisRay instanceof Ray)) {
-            throw new IllegalArgumentException("axisRay must be of type Ray");
+        if (axisRay == null) {
+            throw new IllegalArgumentException("axisRay cannot be null");
         }
 
         if (radius <= 0) {

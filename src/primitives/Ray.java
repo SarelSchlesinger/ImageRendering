@@ -9,12 +9,12 @@ public class Ray {
 
     public Ray(Point p0, Vector direction) {
 
-        if (!(p0 instanceof Point)) {
-            throw new IllegalArgumentException("p0 must be of type Point");
+        if (p0 == null) {
+            throw new IllegalArgumentException("p0 cannot be null");
         }
 
-        if (!(direction instanceof Vector)) {
-            throw new IllegalArgumentException("The direction must be of type Vector");
+        if (direction == null) {
+            throw new IllegalArgumentException("direction cannot be null");
         }
 
         this.p0 = p0;

@@ -13,10 +13,6 @@ public class Vector extends Point {
     public Vector(Double3 xyz) {
         super(xyz);
 
-        if (!(xyz instanceof Double3)) {
-            throw new IllegalArgumentException("The argument must be of type Double3");
-        }
-
         if (this.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
