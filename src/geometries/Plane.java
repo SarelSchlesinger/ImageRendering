@@ -1,12 +1,17 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.LinkedList;
+import java.util.List;
+import static primitives.Util.*;
 
 public class Plane implements Geometry {
 
-    final Point p0;
-    final Vector normal;
+    private final Point p0;
+    private final Vector normal;
 
     public Plane(Point p1, Point p2, Point p3) {
 
@@ -55,4 +60,35 @@ public class Plane implements Geometry {
         return p0;
     }
 
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+
+        // The ray is contained in the plane
+        if (isZero(ray.getDirection().dotProduct(this.normal))) {
+            return null;
+        }
+
+        // head of the ray is the head of the normal
+        if (this.p0.equals(ray.getP0())) {
+            return List.of(this.p0);
+        }
+
+        double numerator = this.normal.dotProduct(this.p0.subtract(ray.getP0()));
+        double denominator = this.normal.dotProduct(ray.getDirection());
+        if (isZero(denominator)) {
+            throw new IllegalArgumentException("denominator cannot be zero");
+        }
+        double t = alignZero(numerator / denominator);
+
+        // The ray starts from the plane
+        if (t == 0) {
+            return List.of(ray.getP0());
+        }
+
+        if (t > 0) {
+            return List.of(ray.getP0().add(ray.getDirection().scale(t)));
+        }
+
+        return null;
+    }
 }
