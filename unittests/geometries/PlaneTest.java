@@ -52,7 +52,7 @@ class PlaneTest {
 
         // Ray is orthogonal to the plane - three cases
         // TC5: The ray starts from the surface of the plane
-        assertEquals(List.of(new Point(5,4,0)), plane.findIntersections(ray5),"findIntersections() is incorrect");
+        assertNull(plane.findIntersections(ray5),"findIntersections() is incorrect");
         // TC6: The ray starts after the plane
         assertNull(plane.findIntersections(ray6), "findIntersections() is incorrect");
         // TC7: The ray starts before the plane
@@ -60,9 +60,9 @@ class PlaneTest {
 
         // The ray is neither orthogonal nor parallel to the plane - two cases
         // TC8: The ray begins at the plane
-        assertEquals(List.of(ray8.getP0()), plane.findIntersections(ray8), "findIntersections() is incorrect");
+        assertNull(plane.findIntersections(ray8), "findIntersections() is incorrect");
         // TC9: The ray begins at the same point which appears as a reference point in the plane
-        assertEquals(List.of(ray9.getP0()), plane.findIntersections(ray9), "findIntersections() is incorrect");
+        assertNull(plane.findIntersections(ray9), "findIntersections() is incorrect");
 
     }
 }

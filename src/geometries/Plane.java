@@ -68,9 +68,9 @@ public class Plane implements Geometry {
             return null;
         }
 
-        // head of the ray is the head of the normal
-        if (this.p0.equals(ray.getP0())) {
-            return List.of(this.p0);
+        // Ray origin is the head of the normal
+        if (ray.getP0().equals(this.p0)) {
+            return null;
         }
 
         double numerator = this.normal.dotProduct(this.p0.subtract(ray.getP0()));
@@ -82,7 +82,7 @@ public class Plane implements Geometry {
 
         // The ray starts from the plane
         if (t == 0) {
-            return List.of(ray.getP0());
+            return null;
         }
 
         if (t > 0) {
