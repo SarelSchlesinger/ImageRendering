@@ -2,7 +2,10 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,10 +16,10 @@ class TriangleTest {
     Point p3 = new Point(0,4,0);
     Triangle triangle = new Triangle(p1, p2, p3);
 
+    Point p4 = new Point(1,1,0);  // A point inside the area of the triangle
+
     @Test
     void testGetNormal() {
-
-        Point p4 = new Point(1,1,0);  // A point inside the area of the triangle
 
         // Check if the point inside the area of the triangle
         // this compute was taken from https://math.stackexchange.com/questions/4322/check-whether-a-point-is-within-a-3d-triangle
@@ -24,12 +27,44 @@ class TriangleTest {
         double firstThirdOfTheTriangle = p2.subtract(p4).crossProduct(p3.subtract(p4)).length() / (2 * triangleArea);
         double secondThirdOfTheTriangle = p3.subtract(p4).crossProduct(p1.subtract(p4)).length() / (2 * triangleArea);
         double thirdThirdOfTheTriangle = 1 - firstThirdOfTheTriangle - secondThirdOfTheTriangle;
+
         assertTrue(firstThirdOfTheTriangle >= 0 && secondThirdOfTheTriangle >= 0 && thirdThirdOfTheTriangle >= 0 &&
                             firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1,
                 "The given point is not inside the triangle");
 
-        assertEquals(new Vector(0,0,-20).normalize(), triangle.getNormal(p4), "getNormal() is incorrect");
+        assertEquals(triangle.plane.getNormal(), triangle.getNormal(p4), "getNormal() is incorrect");
 
     }
 
+    @Test
+    void testFindIntersections() {
+
+        Ray ray1 = new Ray(new Point(0,0,-3), new Vector(1,1,1));
+        Ray ray2 = new Ray(new Point(1,1,-3), new Vector(-4,-4,7));
+        Ray ray3 = new Ray(new Point(0,0,-3), new Vector(1,1,8));
+        Ray ray4 = new Ray(new Point(0,1,-1), new Vector(0,0,1));
+        Ray ray5 = new Ray(new Point(0,0,-1), new Vector(0,0,1));
+        Ray ray6 = new Ray(new Point(0,0,-1), new Vector(10,-1,1));
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // First Equivalence Partition - No intersection points
+        // TC1: The ray does not intersect the triangle - the ray passes against the side
+        assertNull(triangle.findIntersections(ray1), "findIntersections() is incorrect");
+        // TC2: The ray does not intersect the triangle - the ray passes against the vertex
+        assertNull(triangle.findIntersections(ray2), "findIntersections() is incorrect");
+
+        // Second Equivalence Partition - One intersection point
+        // TC3: The ray intersects the triangle at one point
+        assertEquals(List.of(new Point(0.375,0.375,0)), triangle.findIntersections(ray3), "findIntersections() is incorrect");
+        assertEquals(1, triangle.findIntersections(ray3).size(), "findIntersections() is incorrect");
+
+        // =============== Boundary Values Tests ==================
+        // TC4: The ray intersects the triangle's side
+        assertNull(triangle.findIntersections(ray4), "findIntersections() is incorrect");
+        // TC5: The ray intersects the triangle's vertex
+        assertNull(triangle.findIntersections(ray5), "findIntersections() is incorrect");
+        // TC6: The ray intersects the triangle's side continuation
+        assertNull(triangle.findIntersections(ray6), "findIntersections() is incorrect");
+    }
 }
