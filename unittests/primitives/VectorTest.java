@@ -1,6 +1,8 @@
 package primitives;
 
 import org.junit.jupiter.api.Test;
+
+import static java.lang.Math.sqrt;
 import static primitives.Util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +43,7 @@ class VectorTest {
 
     @Test
     void testLength() {
-        assertEquals(Math.sqrt(14),v1.length(),"length() is incorrect");
+        assertEquals(sqrt(14),v1.length(),"length() is incorrect");
     }
 
     @Test
