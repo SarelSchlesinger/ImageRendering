@@ -46,6 +46,7 @@ class SphereTest {
         Ray ray15 = new Ray(new Point(1,1,1), new Vector(1,1,0));
 
         // ============ Equivalence Partitions Tests ==============
+
         // First Equivalence Partition - No intersection points
         // TC1: The ray origin is outside the sphere and the ray does not intersect the sphere
         assertNull(sphere.findIntersections(ray1), "findIntersections() is incorrect");
@@ -82,7 +83,6 @@ class SphereTest {
                 sphere.findIntersections(ray7), "findIntersections() is incorrect");
         assertEquals(2, sphere.findIntersections(ray7).size(), "findIntersections() is incorrect");
         // TC8: Ray starts at sphere and goes inside (1 points)
-
         assertEquals(List.of(new Point(1,0,0)),
                 sphere.findIntersections(ray8), "findIntersections() is incorrect");
         assertEquals(1, sphere.findIntersections(ray8).size(), "findIntersections() is incorrect");

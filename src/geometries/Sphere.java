@@ -1,7 +1,13 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
+
+import static java.lang.Math.sqrt;
+import static primitives.Util.*;
 
 public class Sphere implements Geometry {
 
@@ -33,5 +39,38 @@ public class Sphere implements Geometry {
 
     public double getRadius() {
         return this.radius;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+
+        Vector u = this.center.subtract(ray.getP0());
+        double tm = ray.getDirection().dotProduct(u);
+        double d = sqrt(u.lengthSquared() - tm * tm);
+
+        if (d > this.radius) {
+            return null;
+        }
+
+        double th = sqrt(this.radius * this.radius - d * d);
+        double t1 = tm + th;
+        double t2 = tm - th;
+
+        if (alignZero(t1) > 0 && alignZero(t2) > 0 && t1 != t2) {
+
+            return List.of(ray.getPoint(t1), ray.getPoint(t2));
+        }
+
+        if (t1 > 0) {
+
+            return List.of(ray.getPoint(t1));
+        }
+
+        if (t2 > 0) {
+
+            return List.of(ray.getPoint(t2));
+        }
+
+        return null;
     }
 }
