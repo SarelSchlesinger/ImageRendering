@@ -1,6 +1,7 @@
 package primitives;
 
-import java.util.Objects;
+import java.util.List;
+import primitives.*;
 
 public class Ray {
 
@@ -40,5 +41,9 @@ public class Ray {
 
     public Vector getDirection() {
         return direction;
+    }
+
+    public Point getPoint(double t) {
+        return this.getP0().add(this.getDirection().scale(t));
     }
 }
