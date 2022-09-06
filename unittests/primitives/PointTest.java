@@ -13,6 +13,7 @@ class PointTest {
 
     @Test
     void testAdd() {
+
         assertEquals(p1.add(new Point(9,9,9)),p2,"add() is incorrect");
     }
 
@@ -32,4 +33,5 @@ class PointTest {
     void testDistance() {
         assertEquals(Math.sqrt(243),p1.distance(p2),"distanceSquared() is incorrect");
     }
+
 }
