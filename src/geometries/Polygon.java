@@ -88,4 +88,82 @@ public class Polygon implements Geometry {
     public Vector getNormal(Point point) {
         return plane.getNormal();
     }
+
+    /*@Override
+    public List<Point> findIntersections(Ray ray) {
+
+        List<Point> intersections = this.plane.findIntersections(ray);
+
+        // The ray does not intersect the polygon plane
+        if (intersections == null) {
+            return null;
+        }
+
+        //int numOfVertices = vertices.size();
+        //Point p0 = ray.getP0();
+        //Vector dir = ray.getDir();
+
+        Vector v1 = this.vertices.get(0).subtract(ray.getP0());
+        Vector v2 = this.vertices.get(1).subtract(ray.getP0());
+
+        Vector n = v1.crossProduct(v2).normalize();
+        double t = ray.getDirection().dotProduct(n);
+
+        if (isZero(t)) {
+            return null;
+        }
+
+        boolean positive = t > 0;
+
+        for (int i = 1; i < this.vertices.size(); ++i) {
+            v1 = v2;
+            v2 = this.vertices.get(i).subtract(ray.getP0());
+            n = v1.crossProduct(v2).normalize();
+            t = ray.getDirection().dotProduct(n);
+
+            //no intersection
+            if (isZero(t))
+                return null;
+
+            //not the same sign
+            if (t > 0 != positive)
+                return null;
+        }
+
+        intersections.get(0).geometry = this;
+        return intersections;
+    }*/
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+
+        List<Point> intersections = this.plane.findIntersections(ray);
+
+        // The ray does not intersect the polygon plane
+        if (intersections == null) {
+            return null;
+        }
+
+        // rayDirection.dotProduct(Normal)
+        double firstVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(0).subtract(ray.getP0()).crossProduct(this.vertices.get(1).subtract(ray.getP0())).normalize()));
+        double otherVecDotNormal;
+
+        for (int i = 1; i < this.vertices.size() - 1; i++) {
+
+            otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(i).subtract(ray.getP0()).crossProduct(this.vertices.get(i + 1).subtract(ray.getP0())).normalize()));
+
+            if (!((firstVecDotNormal < 0 && otherVecDotNormal < 0) ||
+                    (firstVecDotNormal > 0 && otherVecDotNormal > 0))) {
+                return null;
+            }
+        }
+
+        otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(this.vertices.size() - 1).subtract(ray.getP0()).crossProduct(this.vertices.get(0).subtract(ray.getP0())).normalize()));
+        if (!((firstVecDotNormal < 0 && otherVecDotNormal < 0) ||
+                (firstVecDotNormal > 0 && otherVecDotNormal > 0))) {
+            return null;
+        }
+
+        return intersections;
+    }
 }
