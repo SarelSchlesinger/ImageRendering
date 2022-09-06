@@ -22,10 +22,13 @@ class TubeTest {
         Point pointOnRay = tube.axisRay.getP0().add(tube.axisRay.getDirection().scale(t));
 
         // Check if the point is on the surface of the tube
-        assertTrue(p1.distance(pointOnRay) == tube.radius,
-                "the point is not on the surface of the tube");
+        assertEquals(tube.radius, p1.distance(pointOnRay),"the point is not on the surface of the tube");
 
         assertEquals(new Vector(0,1,0).normalize(), tube.getNormal(p1), "getNormal() is incorrect");
 
+    }
+
+    @Test
+    void testFindIntersections() {
     }
 }
