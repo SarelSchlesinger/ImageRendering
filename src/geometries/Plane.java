@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.LinkedList;
 import java.util.List;
 import static primitives.Util.*;
 
@@ -86,7 +85,7 @@ public class Plane implements Geometry {
         }
 
         if (t > 0) {
-            return List.of(ray.getP0().add(ray.getDirection().scale(t)));
+            return List.of(ray.getPoint(t));
         }
 
         return null;
