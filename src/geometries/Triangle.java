@@ -45,7 +45,7 @@ public class Triangle extends Polygon {
         }
 
         if (t > 0) {
-            return List.of(ray.getP0().add(ray.getDirection().scale(t)));
+            return List.of(ray.getPoint(t));
         }
 
         return null;

@@ -45,6 +45,8 @@ class TriangleTest {
         Ray ray4 = new Ray(new Point(0,1,-1), new Vector(0,0,1));
         Ray ray5 = new Ray(new Point(0,0,-1), new Vector(0,0,1));
         Ray ray6 = new Ray(new Point(0,0,-1), new Vector(10,-1,1));
+        Ray ray7 = new Ray(new Point(-1,-1,0), new Vector(1,1,0));
+        Ray ray8 = new Ray(new Point(1,1,0), new Vector(1,1,1));
 
         // ============ Equivalence Partitions Tests ==============
 
@@ -66,5 +68,9 @@ class TriangleTest {
         assertNull(triangle.findIntersections(ray5), "findIntersections() is incorrect");
         // TC6: The ray intersects the triangle's side continuation
         assertNull(triangle.findIntersections(ray6), "findIntersections() is incorrect");
+        // TC7: The ray parallel to the triangle plane
+        assertNull(triangle.findIntersections(ray7), "findIntersections() is incorrect");
+        // TC8: The ray starts from the surface of the triangle
+        assertNull(triangle.findIntersections(ray8), "findIntersections() is incorrect");
     }
 }
