@@ -23,7 +23,6 @@ class RayTest {
         Point p1 = new Point(1, 1, 2);
         Point p2 = new Point(1, 1, 3);
         Point p3 = new Point(1, 1, 4);
-        //List<Point> points1 = new LinkedList<>();
 
         // ============ Equivalence Partitions Tests ==============
         // TC1: The closest point is in the middle of the list
