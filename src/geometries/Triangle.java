@@ -49,17 +49,9 @@ public class Triangle extends Polygon {
             if (t > 0) {
                 return List.of(ray.getPoint(t));
             }
-
-            //return null;
         }
+
         return null;
-
-//        if (!(ray.getDirection().dotProduct(n1) > 0 &&
-//                ray.getDirection().dotProduct(n2) > 0 &&
-//                ray.getDirection().dotProduct(n3) > 0)) {
-//            return null;
-//        }
-
-
     }
+
 }
