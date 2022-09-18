@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TriangleTest {
 
-    Point p1 = new Point(0,0,0);
-    Point p2 = new Point(5,0,0);
-    Point p3 = new Point(0,4,0);
+    Point p1 = new Point(0, 0, 0);
+    Point p2 = new Point(5, 0, 0);
+    Point p3 = new Point(0, 4, 0);
     Triangle triangle = new Triangle(p1, p2, p3);
 
-    Point p4 = new Point(1,1,0);  // A point inside the area of the triangle
+    Point p4 = new Point(1, 1, 0);  // A point inside the area of the triangle
 
     @Test
     void testGetNormal() {
@@ -29,8 +29,8 @@ class TriangleTest {
         double thirdThirdOfTheTriangle = 1 - firstThirdOfTheTriangle - secondThirdOfTheTriangle;
 
         assertTrue(firstThirdOfTheTriangle >= 0 && secondThirdOfTheTriangle >= 0 && thirdThirdOfTheTriangle >= 0 &&
-                            firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1,
-                "The given point is not inside the triangle");
+                           firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1,
+                   "The given point is not inside the triangle");
 
         assertEquals(triangle.plane.getNormal(), triangle.getNormal(p4), "getNormal() is incorrect");
 
@@ -39,14 +39,14 @@ class TriangleTest {
     @Test
     void testFindIntersections() {
 
-        Ray ray1 = new Ray(new Point(0,0,-3), new Vector(1,1,1));
-        Ray ray2 = new Ray(new Point(1,1,-3), new Vector(-4,-4,7));
-        Ray ray3 = new Ray(new Point(0,0,-3), new Vector(1,1,8));
-        Ray ray4 = new Ray(new Point(0,1,-1), new Vector(0,0,1));
-        Ray ray5 = new Ray(new Point(0,0,-1), new Vector(0,0,1));
-        Ray ray6 = new Ray(new Point(0,0,-1), new Vector(10,-1,1));
-        Ray ray7 = new Ray(new Point(-1,-1,0), new Vector(1,1,0));
-        Ray ray8 = new Ray(new Point(1,1,0), new Vector(1,1,1));
+        Ray ray1 = new Ray(new Point(0, 0, -3), new Vector(1, 1, 1));
+        Ray ray2 = new Ray(new Point(1, 1, -3), new Vector(-4, -4, 7));
+        Ray ray3 = new Ray(new Point(0, 0, -3), new Vector(1, 1, 8));
+        Ray ray4 = new Ray(new Point(0, 1, -1), new Vector(0, 0, 1));
+        Ray ray5 = new Ray(new Point(0, 0, -1), new Vector(0, 0, 1));
+        Ray ray6 = new Ray(new Point(0, 0, -1), new Vector(10, -1, 1));
+        Ray ray7 = new Ray(new Point(-1, -1, 0), new Vector(1, 1, 0));
+        Ray ray8 = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
 
         // ============ Equivalence Partitions Tests ==============
 
@@ -58,7 +58,7 @@ class TriangleTest {
 
         // Second Equivalence Partition - One intersection point
         // TC3: The ray intersects the triangle at one point
-        assertEquals(List.of(new Point(0.375,0.375,0)), triangle.findIntersections(ray3), "findIntersections() is incorrect");
+        assertEquals(List.of(new Point(0.375, 0.375, 0)), triangle.findIntersections(ray3), "findIntersections() is incorrect");
         assertEquals(1, triangle.findIntersections(ray3).size(), "findIntersections() is incorrect");
 
         // =============== Boundary Values Tests ==================
@@ -73,4 +73,5 @@ class TriangleTest {
         // TC8: The ray starts from the surface of the triangle
         assertNull(triangle.findIntersections(ray8), "findIntersections() is incorrect");
     }
+
 }
