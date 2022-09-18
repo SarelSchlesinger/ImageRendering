@@ -46,4 +46,19 @@ public class Ray {
     public Point getPoint(double t) {
         return this.getP0().add(this.getDirection().scale(t));
     }
+
+    public Point findClosestPoint(List<Point> points) {
+        if (points.isEmpty()) {
+            return null;
+        }
+        Point closestPoint = points.get(0);
+        double closestPointDistance = this.p0.distance(points.get(0));
+        for (int i = 1; i < points.size(); i++) {
+            if (this.p0.distance(points.get(i)) < closestPointDistance) {
+                closestPoint = points.get(i);
+                closestPointDistance = this.p0.distance(points.get(i));
+            }
+        }
+        return closestPoint;
+    }
 }

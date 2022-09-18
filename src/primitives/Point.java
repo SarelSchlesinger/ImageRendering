@@ -1,10 +1,13 @@
 package primitives;
 
+import java.util.Collection;
 import java.util.Objects;
 
 public class Point {
 
     final Double3 xyz;
+
+    public static final Point ZERO = new Point(Double3.ZERO);
 
     public Point(double x, double y, double z) {
 
@@ -46,7 +49,7 @@ public class Point {
     }
 
     public double distanceSquared(Point point) {
-        return  (this.xyz.d1 - point.xyz.d1) * (this.xyz.d1 - point.xyz.d1) +
+        return (this.xyz.d1 - point.xyz.d1) * (this.xyz.d1 - point.xyz.d1) +
                 (this.xyz.d2 - point.xyz.d2) * (this.xyz.d2 - point.xyz.d2) +
                 (this.xyz.d3 - point.xyz.d3) * (this.xyz.d3 - point.xyz.d3);
     }
