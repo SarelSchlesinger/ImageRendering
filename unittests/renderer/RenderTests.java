@@ -6,7 +6,7 @@ import lighting.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
-import scene.Scene;
+import scene.*;
 
 /**
  * Test rendering a basic image
