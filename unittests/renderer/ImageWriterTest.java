@@ -3,7 +3,6 @@ package renderer;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 
-import java.awt.*;
 
 public class ImageWriterTest {
 
@@ -19,8 +18,7 @@ public class ImageWriterTest {
             for (int j = 0; j < imageWriter.getNy(); j++) {
                 if (i % 50 == 0 || j % 50 == 0) {
                     imageWriter.writePixel(i, j, red);
-                }
-                else {
+                } else {
                     imageWriter.writePixel(i, j, yellow);
                 }
             }
