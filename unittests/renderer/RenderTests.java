@@ -22,7 +22,7 @@ public class RenderTests {
     @Test
     public void basicRenderTwoColorTest() {
 
-        Scene scene = new Scene.SceneBuilder("Test scene")
+        Scene scene = new Scene.SceneBuilder("TestScene")
                 .setAmbientLight(
                         new AmbientLight(new Color(255, 191, 191), new Double3(1, 1, 1)))
                 .setBackground(new Color(75, 127, 90))
@@ -32,7 +32,7 @@ public class RenderTests {
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneDistance(100)
                 .setViewPlaneSize(500, 500)
-                .setImageWriter(new ImageWriter("base render test", 1000, 1000))
+                .setImageWriter(new ImageWriter("baseRenderTest", 1000, 1000))
                 .setRayTracer(new RayTracerBasic(scene));
 
 
