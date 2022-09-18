@@ -1,7 +1,6 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-import geometries.*;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -20,7 +19,6 @@ class GeometriesTest {
             new Point(0, 4, 0));
 
     Sphere sphere1 = new Sphere(new Point(0, 0, 0), 1);
-    Sphere sphere2 = new Sphere(new Point(0, 0, 10), 3);
 
     Geometries geometries1 = new Geometries(plane, triangle, sphere1);
 
