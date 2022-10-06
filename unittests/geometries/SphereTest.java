@@ -70,7 +70,7 @@ class SphereTest {
         // =============== Boundary Values Tests ==================
 
         // **** Group1: Ray crosses the sphere (but not the center)
-        // TC5: Ray starts at sphere and goes inside (1 points)
+        // TC5: Ray starts at the sphere envelope and goes inside (1 point)
         assertEquals(List.of(new Point(0.412834560983999, 0.16624637237233, 0.895505314853122)),
                      sphere.findIntersections(ray5), "findIntersections() is incorrect");
         assertEquals(1, sphere.findIntersections(ray5).size(), "findIntersections() is incorrect");
@@ -82,15 +82,15 @@ class SphereTest {
         assertEquals(List.of(new Point(1, 0, 0), new Point(-1, 0, 0)),
                      sphere.findIntersections(ray7), "findIntersections() is incorrect");
         assertEquals(2, sphere.findIntersections(ray7).size(), "findIntersections() is incorrect");
-        // TC8: Ray starts at sphere and goes inside (1 points)
+        // TC8: Ray starts at sphere and goes inside (1 point)
         assertEquals(List.of(new Point(1, 0, 0)),
                      sphere.findIntersections(ray8), "findIntersections() is incorrect");
         assertEquals(1, sphere.findIntersections(ray8).size(), "findIntersections() is incorrect");
-        // TC9: Ray starts inside (1 points)
+        // TC9: Ray starts inside (1 point)
         assertEquals(List.of(new Point(1, 0, 0)),
                      sphere.findIntersections(ray9), "findIntersections() is incorrect");
         assertEquals(1, sphere.findIntersections(ray9).size(), "findIntersections() is incorrect");
-        // TC10: Ray starts at the center (1 points)
+        // TC10: Ray starts at the center (1 point)
         assertEquals(List.of(new Point(1, 0, 0)),
                      sphere.findIntersections(ray10), "findIntersections() is incorrect");
         assertEquals(1, sphere.findIntersections(ray10).size(), "findIntersections() is incorrect");
