@@ -78,4 +78,10 @@ public class Vector extends Point {
         return new Vector(this.xyz.reduce(this.length()));
     }
 
+    public Boolean isParallel(Vector vector) {
+        Vector v1 = this.normalize();
+        Vector v2 = vector.normalize();
+        return abs(v1.getX()) == abs(v2.getX()) && abs(v1.getY()) == abs(v2.getY()) && abs(v1.getZ()) == abs(v2.getZ());
+    }
+
 }
