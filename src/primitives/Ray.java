@@ -1,7 +1,10 @@
 package primitives;
 
 import java.util.List;
+
 import primitives.*;
+
+import static java.lang.Math.abs;
 
 public class Ray {
 
@@ -46,6 +49,7 @@ public class Ray {
     public Point getPoint(double t) {
         return this.getP0().add(this.getDirection().scale(t));
     }
+
 
     public Point findClosestPoint(List<Point> points) {
         if (points.isEmpty()) {

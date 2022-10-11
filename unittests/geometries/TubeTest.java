@@ -19,7 +19,7 @@ class TubeTest {
     @Test
     void testGetNormal() {
 
-        Point p1 = new Point(2, 1, 0);  // point on the surface of the tube
+        Point p1 = new Point(0, 1, 1);  // point on the surface of the tube
         double t = p1.subtract(tube.axisRay.getP0()).dotProduct(tube.axisRay.getDirection());
         Point pointOnRay = tube.axisRay.getP0().add(tube.axisRay.getDirection().scale(t));
 

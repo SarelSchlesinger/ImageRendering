@@ -6,6 +6,10 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static java.lang.Math.sqrt;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 public class Tube implements Geometry {
 
     final Ray axisRay;
@@ -17,7 +21,6 @@ public class Tube implements Geometry {
         if (axisRay == null) {
             throw new IllegalArgumentException("axisRay cannot be null");
         }
-
         if (radius <= 0) {
             throw new IllegalArgumentException("The radius must be greater than 0");
         }
@@ -44,6 +47,10 @@ public class Tube implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
+
+        /*if (this.axisRay.getDirection().isParallel(ray.getDirection())) {
+            return null;
+        }*/
         return null;
     }
 }
