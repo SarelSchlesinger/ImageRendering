@@ -5,9 +5,10 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
+
 import static primitives.Util.*;
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     private final Point p0;
     private final Vector normal;
@@ -22,7 +23,7 @@ public class Plane implements Geometry {
             throw new IllegalArgumentException("All points should be different from each other");
         }
 
-        if ((p1.subtract(p2).crossProduct(p1.subtract(p3))).equals(new Vector(0,0,0))) {
+        if ((p1.subtract(p2).crossProduct(p1.subtract(p3))).equals(new Vector(0, 0, 0))) {
             throw new IllegalArgumentException("The points should not be on the same line");
         }
 
@@ -59,8 +60,9 @@ public class Plane implements Geometry {
         return p0;
     }
 
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
         // The ray is contained in the plane
         if (isZero(ray.getDirection().dotProduct(this.normal))) {
@@ -85,7 +87,7 @@ public class Plane implements Geometry {
         }
 
         if (t > 0) {
-            return List.of(ray.getPoint(t));
+            return List.of(new GeoPoint(this, ray.getPoint(t)));
         }
 
         return null;

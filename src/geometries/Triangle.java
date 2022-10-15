@@ -17,8 +17,7 @@ public class Triangle extends Polygon {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         // Check if the point inside the area of the triangle
         Vector v1 = this.vertices.get(0).subtract(ray.getP0());
         Vector v2 = this.vertices.get(1).subtract(ray.getP0());
@@ -47,11 +46,10 @@ public class Triangle extends Polygon {
             }
 
             if (t > 0) {
-                return List.of(ray.getPoint(t));
+                return List.of(new GeoPoint(this, ray.getPoint(t)));
             }
         }
 
         return null;
     }
-
 }

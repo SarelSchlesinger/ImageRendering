@@ -74,10 +74,7 @@ public class Double3 {
      * @return result of add
      */
     public Double3 add(Double3 rhs) {
-        return new Double3(
-                this.d1 + rhs.d1,
-                this.d2 + rhs.d2,
-                this.d3 + rhs.d3);
+        return new Double3(this.d1 + rhs.d1, this.d2 + rhs.d2, this.d3 + rhs.d3);
     }
 
     /**
@@ -88,10 +85,7 @@ public class Double3 {
      * @return result of add
      */
     public Double3 subtract(Double3 rhs) {
-        return new Double3(
-                this.d1 - rhs.d1,
-                this.d2 - rhs.d2,
-                this.d3 - rhs.d3);
+        return new Double3(this.d1 - rhs.d1, this.d2 - rhs.d2, this.d3 - rhs.d3);
     }
 
     /**
@@ -102,10 +96,7 @@ public class Double3 {
      * @return result of scale
      */
     public Double3 scale(double rhs) {
-        return new Double3(
-                this.d1 * rhs,
-                this.d2 * rhs,
-                this.d3 * rhs);
+        return new Double3(this.d1 * rhs, this.d2 * rhs, this.d3 * rhs);
     }
 
     /**
@@ -116,10 +107,7 @@ public class Double3 {
      * @return result of scale
      */
     public Double3 reduce(double rhs) {
-        return new Double3(
-                this.d1 / rhs,
-                this.d2 / rhs,
-                this.d3 / rhs);
+        return new Double3(this.d1 / rhs, this.d2 / rhs, this.d3 / rhs);
     }
 
     /**
@@ -130,10 +118,7 @@ public class Double3 {
      * @return result of product
      */
     public Double3 product(Double3 rhs) {
-        return new Double3(
-                this.d1 * rhs.d1,
-                this.d2 * rhs.d2,
-                this.d3 * rhs.d3);
+        return new Double3(this.d1 * rhs.d1, this.d2 * rhs.d2, this.d3 * rhs.d3);
     }
 
 }

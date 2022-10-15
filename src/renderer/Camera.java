@@ -124,11 +124,13 @@ public class Camera {
 
             // IMAGE RENDERING
             // Pass a ray from the camera through each pixel in the view plane and set the color
-            for (int i = 0; i < this.imageWriter.getNy(); i++) {
-                for (int j = 0; j < this.imageWriter.getNx(); j++) {
-                    Ray ray = this.constructRay(this.imageWriter.getNx(), this.imageWriter.getNy(), j, i);
+            int nX = this.imageWriter.getNx();
+            int nY = this.imageWriter.getNy();
+            for (int row = 0; row < nY; row++) {
+                for (int col = 0; col < nX; col++) {
+                    Ray ray = this.constructRay(nX, nY, col, row);
                     Color pixelColor = this.rayTracer.traceRay(ray);
-                    this.imageWriter.writePixel(j, i, pixelColor);
+                    this.imageWriter.writePixel(col, row, pixelColor);
                 }
             }
 
@@ -150,8 +152,10 @@ public class Camera {
             throw new MissingResourceException("missing resource value", ImageWriter.class.getName(), "");
         }
 
-        for (int i = 0; i < this.imageWriter.getNy(); i++) {
-            for (int j = 0; j < this.imageWriter.getNx(); j++) {
+        int nY = this.imageWriter.getNy();
+        int nX = this.imageWriter.getNx();
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
                 if (i % interval == 0 || j % interval == 0) {
                     imageWriter.writePixel(i, j, color);
                 }

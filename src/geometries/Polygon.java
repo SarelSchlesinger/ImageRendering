@@ -12,7 +12,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -91,9 +91,9 @@ public class Polygon implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
-        List<Point> intersections = this.plane.findIntersections(ray);
+        List<GeoPoint> intersections = this.plane.findGeoIntersections(ray);
 
         // The ray does not intersect the polygon plane
         if (intersections == null) {
@@ -120,6 +120,6 @@ public class Polygon implements Geometry {
             return null;
         }
 
-        return intersections;
+        return List.of(new GeoPoint(this, intersections.get(0).point));
     }
 }

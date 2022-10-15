@@ -1,15 +1,13 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
 import static java.lang.Math.sqrt;
 import static primitives.Util.*;
 
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     final Point center;
     final double radius;
@@ -42,8 +40,7 @@ public class Sphere implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Vector u = this.center.subtract(ray.getP0());
         double tm = ray.getDirection().dotProduct(u);
         double d = sqrt(u.lengthSquared() - tm * tm);
@@ -58,17 +55,18 @@ public class Sphere implements Geometry {
 
         if (alignZero(t1) > 0 && alignZero(t2) > 0 && t1 != t2) {
 
-            return List.of(ray.getPoint(t1), ray.getPoint(t2));
+            return List.of(new GeoPoint(this,ray.getPoint(t1)),
+                           new GeoPoint(this,ray.getPoint(t2)));
         }
 
         if (t1 > 0) {
 
-            return List.of(ray.getPoint(t1));
+            return List.of(new GeoPoint(this,ray.getPoint(t1)));
         }
 
         if (t2 > 0) {
 
-            return List.of(ray.getPoint(t2));
+            return List.of(new GeoPoint(this,ray.getPoint(t2)));
         }
 
         return null;

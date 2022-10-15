@@ -23,7 +23,7 @@ public class Scene {
 
     public static class SceneBuilder {
         private final String name;
-        private Color background;
+        private Color background = Color.BLACK;
         private AmbientLight ambientLight;
         private Geometries geometries = new Geometries();
 
