@@ -2,7 +2,6 @@ package primitives;
 
 import geometries.Intersectable.GeoPoint;
 
-import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;

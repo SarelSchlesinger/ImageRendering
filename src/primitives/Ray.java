@@ -4,7 +4,6 @@ import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
 
-import static java.lang.Math.abs;
 
 public class Ray {
 
