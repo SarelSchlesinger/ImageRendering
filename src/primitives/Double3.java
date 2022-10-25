@@ -22,7 +22,6 @@ public class Double3 {
 
     /**
      * Constructor to initialize Double3 based object with its three number values
-     *
      * @param d1 first number value
      * @param d2 second number value
      * @param d3 third number value
