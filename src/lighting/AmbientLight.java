@@ -3,27 +3,21 @@ package lighting;
 import primitives.*;
 
 /**
- * Ambient light for all objects in 3D space
+ * An ambient light source represents a fixed-intensity and fixed-color light source
+ * that affects all objects in the scene equally
  */
-public class AmbientLight {
-
-    // The intensity of ambient light
-    private final Color intensity;
+public class AmbientLight extends Light {
 
     /**
-     *
      * @param Ia Illumination light
      * @param Ka light factor
      */
     public AmbientLight(Color Ia, Double3 Ka) {
-        this.intensity = Ia.scale(Ka);
+        super(Ia.scale(Ka));
     }
 
     public AmbientLight() {
-        this.intensity = Color.BLACK;
+        super(Color.BLACK);
     }
 
-    public Color getIntensity() {
-        return intensity;
-    }
 }

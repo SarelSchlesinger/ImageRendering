@@ -1,12 +1,11 @@
 package renderer;
 
+import lighting.AmbientLight;
 import org.junit.jupiter.api.Test;
 
-import lighting.*;
 import geometries.*;
 import primitives.*;
 import scene.*;
-import renderer.*;
 
 import static java.awt.Color.*;
 

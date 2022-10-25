@@ -8,17 +8,17 @@ import static primitives.Util.isZero;
 
 public class Camera {
 
-    private Point p0; // camera location
+    private Point cameraPosition;
     private Vector vUp, vTo, vRight;
     private double height, width, distance;
     private ImageWriter imageWriter;
     private RayTracer rayTracer;
 
-    public Camera(Point p0, Vector vTo, Vector vUp) {
+    public Camera(Point cameraPosition, Vector vTo, Vector vUp) {
         if (!isZero(vUp.dotProduct(vTo))) {
             throw new IllegalArgumentException("The vectors must be orthogonal");
         }
-        this.p0 = p0;
+        this.cameraPosition = cameraPosition;
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
         this.vRight = this.vTo.crossProduct(this.vUp);
@@ -67,7 +67,7 @@ public class Camera {
     public Ray constructRay(int nX, int nY, int j, int i) {
 
         // pCenter is the point in the center of the view plane
-        Point pCenter = this.p0.add(this.vTo.scale(this.distance));
+        Point pCenter = this.cameraPosition.add(this.vTo.scale(this.distance));
 
         // pixels size
         double ratioX = this.width / nX;
@@ -86,30 +86,30 @@ public class Camera {
             pIJ = pIJ.add(this.vUp.scale(yI));
         }
 
-        Vector vIJ = pIJ.subtract(this.p0); // vector to the center of the pixel
+        Vector vIJ = pIJ.subtract(this.cameraPosition); // vector to the center of the pixel
 
-        return new Ray(this.p0, vIJ);
+        return new Ray(this.cameraPosition, vIJ);
     }
 
-    public Point getP0() {
-        return p0;
+    public Point getCameraPosition() {
+        return this.cameraPosition;
     }
 
     public Vector getvUp() {
-        return vUp;
+        return this.vUp;
     }
 
     public Vector getvTo() {
-        return vTo;
+        return this.vTo;
     }
 
     public Vector getvRight() {
-        return vRight;
+        return this.vRight;
     }
 
-    public void renderImage() {
+    public Camera renderImage() {
         try {
-            if (this.p0 == null) {
+            if (this.cameraPosition == null) {
                 throw new MissingResourceException("Missing resource value", Point.class.getName(), "");
             }
             if (this.vUp == null || this.vRight == null || this.vTo == null) {
@@ -137,13 +137,15 @@ public class Camera {
         } catch (MissingResourceException exception) {
             throw new UnsupportedOperationException("The fields must not be null ----> " + exception.getClassName());
         }
+        return this;
     }
 
-    public void writeToImage() {
+    public Camera writeToImage() {
         if (this.imageWriter == null) {
             throw new MissingResourceException("missing resource value", ImageWriter.class.getName(), "");
         }
         this.imageWriter.writeToImage();
+        return this;
     }
 
     public void printGrid(int interval, Color color) {
