@@ -43,10 +43,7 @@ public class Tube extends Geometry {
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        /*if (this.axisRay.getDirection().isParallel(ray.getDirection())) {
-            return null;
-        }*/
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         return null;
     }
 }

@@ -9,7 +9,7 @@ public class ImageWriterTest {
     @Test
     void testWriteToImage() {
 
-        ImageWriter imageWriter = new ImageWriter("testImage", 800, 500);
+        ImageWriter imageWriter = new ImageWriter("01 testImage", 800, 500);
 
         Color yellow = new Color(255d, 255d, 0d);
         Color red = new Color(255d, 0d, 0d);

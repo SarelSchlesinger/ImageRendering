@@ -22,5 +22,7 @@ public interface LightSource {
      * @param point is the starting point of the vector
      * @return direction of light
      */
-    public Vector getL(Point point);
+    public Vector getLight(Point point);
+
+    double getDistance(Point point);
 }

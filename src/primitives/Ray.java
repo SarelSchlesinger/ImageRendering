@@ -9,6 +9,7 @@ public class Ray {
 
     final private Point p0;
     final private Vector direction;
+    private static final double DELTA = 0.1;
 
     public Ray(Point p0, Vector direction) {
 
@@ -21,6 +22,24 @@ public class Ray {
         }
 
         this.p0 = p0;
+        this.direction = direction.normalize();
+    }
+
+    public Ray(Point p0, Vector direction, Vector normal) {
+
+        if (p0 == null) {
+            throw new IllegalArgumentException("p0 cannot be null");
+        }
+
+        if (direction == null) {
+            throw new IllegalArgumentException("direction cannot be null");
+        }
+
+        if (normal == null) {
+            throw new IllegalArgumentException("normal cannot be null");
+        }
+
+        this.p0 = p0.add(normal.scale(DELTA));
         this.direction = direction.normalize();
     }
 
@@ -65,16 +84,16 @@ public class Ray {
         return closestPoint;
     }
 
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
-        if (points.isEmpty()) {
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
+        if (geoPoints == null) {
             return null;
         }
-        GeoPoint closestPoint = points.get(0);
-        double closestPointDistance = this.p0.distance(points.get(0).point);
-        for (int i = 1; i < points.size(); i++) {
-            if (this.p0.distance(points.get(i).point) < closestPointDistance) {
-                closestPoint = points.get(i);
-                closestPointDistance = this.p0.distance(points.get(i).point);
+        GeoPoint closestPoint = geoPoints.get(0);
+        double closestPointDistance = this.p0.distance(geoPoints.get(0).point);
+        for (int i = 1; i < geoPoints.size(); i++) {
+            if (this.p0.distance(geoPoints.get(i).point) < closestPointDistance) {
+                closestPoint = geoPoints.get(i);
+                closestPointDistance = this.p0.distance(geoPoints.get(i).point);
             }
         }
         return closestPoint;

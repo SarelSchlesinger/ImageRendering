@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+
 public class PointLight extends Light implements LightSource {
 
     private final Point position;
@@ -22,14 +24,19 @@ public class PointLight extends Light implements LightSource {
     @Override
     public Color getIntensity(Point point) {
         Color Ic = this.getIntensity();
-        double distance = point.distance(this.position);
+        double distance = alignZero(point.distance(this.position));
         double factor = this.kC + this.kL * distance + this.kQ * distance * distance;
         return Ic.reduce(factor);
     }
 
     @Override
-    public Vector getL(Point point) {
+    public Vector getLight(Point point) {
         return point.subtract(position).normalize();
+    }
+
+    @Override
+    public double getDistance(Point point) {
+        return this.position.distance(point);
     }
 
     public PointLight setKc(double kC) {

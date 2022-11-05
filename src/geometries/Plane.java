@@ -62,7 +62,7 @@ public class Plane extends Geometry {
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
         // The ray is contained in the plane
         if (isZero(ray.getDirection().dotProduct(this.normal))) {
@@ -86,7 +86,7 @@ public class Plane extends Geometry {
             return null;
         }
 
-        if (t > 0) {
+        if (t > 0 && alignZero(t - maxDistance) <= 0) {
             return List.of(new GeoPoint(this, ray.getPoint(t)));
         }
 

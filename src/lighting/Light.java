@@ -10,7 +10,7 @@ abstract class Light {
     /**
      * Light's color. The intensity of RGB colors
      */
-    private Color intensity;
+    protected final Color intensity;
 
     protected Light(Color intensity) {
         this.intensity = intensity;

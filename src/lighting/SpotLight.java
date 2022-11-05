@@ -9,7 +9,7 @@ public class SpotLight extends PointLight {
     private final Vector direction;
     private double narrowBeam = 0d;
 
-    protected SpotLight(Color intensity, Point position, Vector direction) {
+    public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
         this.direction = direction.normalize();
     }
@@ -17,7 +17,7 @@ public class SpotLight extends PointLight {
     @Override
     public Color getIntensity(Point point) {
         Color Ic = super.getIntensity(point);
-        double Lv = this.getL(point).dotProduct(this.direction);
+        double Lv = this.getLight(point).dotProduct(this.direction);
         double factor = Math.max(0, Lv);
         return Ic.scale(factor);
     }

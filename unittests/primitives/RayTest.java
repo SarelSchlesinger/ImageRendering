@@ -27,10 +27,6 @@ class RayTest {
         Point p1 = new Point(1, 1, 2);
         Point p2 = new Point(1, 1, 3);
         Point p3 = new Point(1, 1, 4);
-        Sphere sphere = new Sphere(new Point(1, 1, 3), 1);
-        Triangle triangle = new Triangle(new Point(3, 3, 3),
-                                         new Point(-8, -3, 3),
-                                         new Point(3, -4, 3));
 
         // ============ Equivalence Partitions Tests ==============
         // TC1: The closest point is in the middle of the list
@@ -51,7 +47,7 @@ class RayTest {
         Point p1 = new Point(1, 1, 2);
         Point p2 = new Point(1, 1, 3);
         Point p3 = new Point(1, 1, 4);
-        Sphere sphere = new Sphere(new Point(1, 1, 3), 1);
+        Sphere sphere = new Sphere(p2, 1);
         Triangle triangle = new Triangle(new Point(3, 3, 3),
                                          new Point(-8, -3, 3),
                                          new Point(3, -4, 3));
