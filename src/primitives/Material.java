@@ -1,12 +1,19 @@
 package primitives;
 
 public class Material {
+
+    /**
+     * @member Kd - Diffuse component
+     * @member Ks - Specular component
+     * @member Kr - Reflection component
+     * @member Kt - Transparency component
+     * @member Shininess - material's shininess level
+     */
     private Double3 Kd = Double3.ZERO;
     private Double3 Ks = Double3.ZERO;
     private Double3 Kr = Double3.ZERO;
     private Double3 Kt = Double3.ZERO;
-
-    private int nShininess = 0;
+    private int Shininess = 0;
 
     public Material setKd(double kd) {
         this.Kd = new Double3(kd);
@@ -64,12 +71,12 @@ public class Material {
         return this.Kt;
     }
 
-    public Material setShininess(int nShininess) {
-        this.nShininess = nShininess;
+    public Material setShininess(int Shininess) {
+        this.Shininess = Shininess;
         return this;
     }
 
-    public int getnShininess() {
-        return this.nShininess;
+    public int getShininess() {
+        return this.Shininess;
     }
 }

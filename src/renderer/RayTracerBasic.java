@@ -168,7 +168,7 @@ public class RayTracerBasic extends RayTracer {
         if (-alignZero(r.dotProduct(rayDirection)) <= 0) {
             return Double3.ZERO;
         }
-        return material.getKs().scale(Math.pow(-alignZero(r.dotProduct(rayDirection)), material.getnShininess()));
+        return material.getKs().scale(Math.pow(-alignZero(r.dotProduct(rayDirection)), material.getShininess()));
     }
 
     /**
@@ -197,9 +197,9 @@ public class RayTracerBasic extends RayTracer {
         Vector lightDirectionFromGeoPointToLightSource = lightDirection.scale(-1);
         Ray lightRay;
         if (nv < 0) {
-            lightRay = new Ray(geoPoint.point, normal, lightDirectionFromGeoPointToLightSource);
+            lightRay = new Ray(geoPoint.point, lightDirectionFromGeoPointToLightSource, normal);
         } else {
-            lightRay = new Ray(geoPoint.point, normal.scale(-1), lightDirectionFromGeoPointToLightSource);
+            lightRay = new Ray(geoPoint.point, lightDirectionFromGeoPointToLightSource, normal.scale(-1));
         }
         double maxDistance = lightSource.getDistance(geoPoint.point);
         List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay, maxDistance);

@@ -1,10 +1,8 @@
 package scene;
 
 import geometries.Geometries;
-import lighting.AmbientLight;
-import lighting.LightSource;
-import primitives.Color;
-import primitives.Double3;
+import lighting.*;
+import primitives.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class Scene {
     public static class SceneBuilder {
         private final String name;
         private Color background = Color.BLACK;
-        private AmbientLight ambientLight = new AmbientLight(Color.BLACK, new Double3(1, 1, 1));
+        private AmbientLight ambientLight = new AmbientLight(Color.BLACK, Double3.ONE);
         private Geometries geometries = new Geometries();
         private List<LightSource> lights = new LinkedList<>();
 
