@@ -7,6 +7,8 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
+import java.util.Collections;
+
 import static java.awt.Color.*;
 
 /**
@@ -175,23 +177,22 @@ public class LightsTests {
     @Test
     public void sphereMultiLightSources() {
         scene1.getGeometries().add(sphere);
-        scene1.getLights().add(
-                new SpotLight(
-                        new Color(500, 300, 0),
-                        new Point(50, -50, -50),
-                        new Vector(1, 1, -2))
-                        .setKl(0.00001)
-                        .setKq(0.00000001));
-        scene1.getLights().add(
-                new PointLight(
-                        new Color(500, 300, 0),
-                        new Point(50, 50, 50))
-                        .setKl(0.00001)
-                        .setKq(0.000001));
-        scene1.getLights().add(
-                new DirectionalLight(
-                        new Color(500, 300, 0),
-                        new Vector(5, -1, 1)));
+
+        Collections.addAll(scene1.getLights(),
+                           new SpotLight(
+                                   new Color(500, 300, 0),
+                                   new Point(50, -50, -50),
+                                   new Vector(1, 1, -2))
+                                   .setKl(0.00001)
+                                   .setKq(0.00000001),
+                           new PointLight(
+                                   new Color(500, 300, 0),
+                                   new Point(50, 50, 50))
+                                   .setKl(0.00001)
+                                   .setKq(0.000001),
+                           new DirectionalLight(
+                                   new Color(500, 300, 0),
+                                   new Vector(5, -1, 1)));
 
 
         ImageWriter imageWriter = new ImageWriter("12 multiLightsSphere", 500, 500);
@@ -207,24 +208,24 @@ public class LightsTests {
      */
     @Test
     public void trianglesMultiLightSources() {
+
         scene2.getGeometries().add(
                 triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)),
                 triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
-        scene2.getLights().add(
-                new SpotLight(
-                        new Color(500, 250, 250),
-                        new Point(20, -10, -50),
-                        new Vector(2, -2, -1))
-                        .setKl(0.0001).setKq(0.000005));
-        scene2.getLights().add(
-                new PointLight(
-                        new Color(500, 250, 250),
-                        new Point(10, 20, -100))
-                        .setKl(0.0005).setKq(0.0005));
-        scene2.getLights().add(
-                new DirectionalLight(
-                        new Color(300, 150, 130),
-                        new Vector(10, 3, -8)));
+
+        Collections.addAll(scene2.getLights(),
+                           new SpotLight(
+                                   new Color(500, 250, 250),
+                                   new Point(20, -10, -50),
+                                   new Vector(2, -2, -1))
+                                   .setKl(0.0001).setKq(0.000005),
+                           new PointLight(
+                                   new Color(500, 250, 250),
+                                   new Point(10, 20, -100))
+                                   .setKl(0.0005).setKq(0.0005),
+                           new DirectionalLight(
+                                   new Color(300, 150, 130),
+                                   new Vector(10, 3, -8)));
 
         ImageWriter imageWriter = new ImageWriter("13 multiLightsTriangles", 500, 500);
 
