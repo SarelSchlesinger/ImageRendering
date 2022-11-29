@@ -49,9 +49,9 @@ public class Point {
     }
 
     public double distanceSquared(Point point) {
-        return (this.xyz.d1 - point.xyz.d1) * (this.xyz.d1 - point.xyz.d1) +
-                (this.xyz.d2 - point.xyz.d2) * (this.xyz.d2 - point.xyz.d2) +
-                (this.xyz.d3 - point.xyz.d3) * (this.xyz.d3 - point.xyz.d3);
+        return (this.getX() - point.getX()) * (this.getX() - point.getX()) +
+                (this.getY() - point.getY()) * (this.getY() - point.getY()) +
+                (this.getZ() - point.getZ()) * (this.getZ() - point.getZ());
     }
 
     public double distance(Point point) {
@@ -69,6 +69,15 @@ public class Point {
 
     public double getZ() {
         return this.xyz.d3;
+    }
+
+    /**
+     * Returns the average point between two given points
+     */
+    public Point midpoint(Point point) {
+        return new Point((this.getX() + point.getX()) / 2,
+                         (this.getY() + point.getY()) / 2,
+                         (this.getZ() + point.getZ()) / 2);
     }
 
 }

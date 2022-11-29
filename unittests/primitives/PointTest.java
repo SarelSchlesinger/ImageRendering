@@ -34,4 +34,9 @@ class PointTest {
         assertEquals(Math.sqrt(243),p1.distance(p2),"distanceSquared() is incorrect");
     }
 
+    @Test
+    void testMidpoint() {
+        assertEquals(new Point(5.5,6.5,7.5),p1.midpoint(p2),"midpoint() is incorrect");
+    }
+
 }
