@@ -209,23 +209,12 @@ public class LightsTests {
     @Test
     public void trianglesMultiLightSources() {
 
-        scene2.getGeometries().add(
-                triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)),
-                triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
+        scene2.getGeometries().add(triangle1, triangle2);
 
         Collections.addAll(scene2.getLights(),
-                           new SpotLight(
-                                   new Color(500, 250, 250),
-                                   new Point(20, -10, -50),
-                                   new Vector(2, -2, -1))
-                                   .setKl(0.0001).setKq(0.000005),
-                           new PointLight(
-                                   new Color(500, 250, 250),
-                                   new Point(10, 20, -100))
-                                   .setKl(0.0005).setKq(0.0005),
-                           new DirectionalLight(
-                                   new Color(300, 150, 130),
-                                   new Vector(10, 3, -8)));
+                           new SpotLight(new Color(RED), trPL, trDL).setKl(0.001).setKq(0.0001),
+                           new PointLight(new Color(BLUE), trPL).setKl(0.001).setKq(0.0002),
+                           new DirectionalLight(new Color(GRAY), trDL));
 
         ImageWriter imageWriter = new ImageWriter("13 multiLightsTriangles", 500, 500);
 
