@@ -10,10 +10,13 @@ public class PointLight extends Light implements LightSource {
 
     private final Point position;
     /**
-     * kC, kL, kQ are constants variables for attenuation
+     * kL, kC and kQ are constants variables for attenuation
+     * kL -  for fixed attenuation dependent on distance
+     * kC - for fixed attenuation non-dependent on distance
+     * kQ - for fixed attenuation depending on the square distance
      */
-    private double kC = 1d;
     private double kL = 0d;
+    private double kC = 1d;
     private double kQ = 0d;
 
     protected PointLight(Color intensity, Point position) {
@@ -39,16 +42,25 @@ public class PointLight extends Light implements LightSource {
         return this.position.distance(point);
     }
 
-    public PointLight setKc(double kC) {
-        this.kC = kC;
-        return this;
-    }
-
+    /**
+     * kL -  set fixed attenuation dependent on distance
+     */
     public PointLight setKl(double kL) {
         this.kL = kL;
         return this;
     }
 
+    /**
+     * kC - set fixed attenuation non-dependent on distance
+     */
+    public PointLight setKc(double kC) {
+        this.kC = kC;
+        return this;
+    }
+
+    /**
+     * kQ - for fixed attenuation depending on the square distance
+     */
     public PointLight setKq(double kQ) {
         this.kQ = kQ;
         return this;
