@@ -111,17 +111,18 @@ public class Vector extends Point {
      * @return a new rotated vector
      */
     public Vector rotationAroundArbitraryAxis(Vector axis, double angle) {
+        Vector normalizedVector = axis.normalize();
         double cos_angle = cos(toRadians(angle));
         double sin_angle = sin(toRadians(angle));
-        return new Vector(this.getX() * (cos_angle + pow(axis.getX(), 2) * (1 - cos_angle))
-                                  + this.getY() * (axis.getX() * axis.getY() * (1 - cos_angle) - axis.getZ() * sin_angle)
-                                  + this.getZ() * (axis.getY() * sin_angle + axis.getX() * axis.getZ() * (1 - cos_angle)),
-                          this.getX() * (axis.getZ() * sin_angle + axis.getX() * axis.getY() * (1 - cos_angle))
-                                  + this.getY() * (cos_angle + pow(axis.getY(), 2) * (1 - cos_angle))
-                                  + this.getZ() * (-axis.getX() * sin_angle + axis.getY() * axis.getZ() * (1 - cos_angle)),
-                          this.getX() * (-axis.getY() * sin_angle + axis.getX() * axis.getZ() * (1 - cos_angle))
-                                  + this.getY() * (axis.getX() * sin_angle + axis.getY() * axis.getZ() * (1 - cos_angle))
-                                  + this.getZ() * (cos_angle + pow(axis.getZ(), 2) * (1 - cos_angle)));
+        return new Vector(this.getX() * (cos_angle + pow(normalizedVector.getX(), 2) * (1 - cos_angle))
+                                  + this.getY() * (normalizedVector.getX() * normalizedVector.getY() * (1 - cos_angle) - normalizedVector.getZ() * sin_angle)
+                                  + this.getZ() * (normalizedVector.getY() * sin_angle + normalizedVector.getX() * normalizedVector.getZ() * (1 - cos_angle)),
+                          this.getX() * (normalizedVector.getZ() * sin_angle + normalizedVector.getX() * normalizedVector.getY() * (1 - cos_angle))
+                                  + this.getY() * (cos_angle + pow(normalizedVector.getY(), 2) * (1 - cos_angle))
+                                  + this.getZ() * (-normalizedVector.getX() * sin_angle + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos_angle)),
+                          this.getX() * (-normalizedVector.getY() * sin_angle + normalizedVector.getX() * normalizedVector.getZ() * (1 - cos_angle))
+                                  + this.getY() * (normalizedVector.getX() * sin_angle + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos_angle))
+                                  + this.getZ() * (cos_angle + pow(normalizedVector.getZ(), 2) * (1 - cos_angle)));
     }
 
 }
