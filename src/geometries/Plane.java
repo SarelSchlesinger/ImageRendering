@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Double3;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -23,7 +24,7 @@ public class Plane extends Geometry {
             throw new IllegalArgumentException("All points should be different from each other");
         }
 
-        if ((p1.subtract(p2).crossProduct(p1.subtract(p3))).equals(new Vector(0, 0, 0))) {
+        if ((p1.subtract(p2).crossProduct(p1.subtract(p3))).getXYZ().equals(Double3.ZERO)) {
             throw new IllegalArgumentException("The points should not be on the same line");
         }
 

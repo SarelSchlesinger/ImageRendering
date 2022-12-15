@@ -44,4 +44,11 @@ public class Geometries extends Intersectable {
         }
         return intersections;
     }
+
+    @Override
+    public String toString() {
+        return "Geometries{" +
+                "geometriesList=" + geometriesList +
+                "} " + super.toString();
+    }
 }

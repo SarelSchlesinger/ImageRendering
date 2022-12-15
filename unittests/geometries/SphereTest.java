@@ -18,7 +18,8 @@ class SphereTest {
     @Test
     void testGetNormal() {
 
-        Point p1 = new Point(1, 0, 0);  // point on the surface of the sphere
+        // point on the surface of the sphere
+        Point p1 = new Point(1, 0, 0);
 
         // Check if the point is on the surface of the sphere
         assertEquals(sphere.radius, p1.distance(sphere.center), "he point is not on the surface of the sphere");

@@ -2,25 +2,24 @@ package primitives;
 
 import static java.lang.Math.sqrt;
 import static java.lang.Math.abs;
-import static java.lang.Math.pow;
-import static java.lang.Math.sin;
 import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.pow;
 import static java.lang.Math.toRadians;
+import static primitives.Util.isZero;
 
 public class Vector extends Point {
 
     public Vector(double x, double y, double z) {
         super(x, y, z);
-
-        if (this.equals(Double3.ZERO)) {
+        if (isZero(x) && isZero(y) && isZero(z)) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
     }
 
     public Vector(Double3 xyz) {
         super(xyz);
-
-        if (this.equals(Double3.ZERO)) {
+        if (isZero(xyz.d1) && isZero(xyz.d2) && isZero(xyz.d3)) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
     }
@@ -35,17 +34,7 @@ public class Vector extends Point {
         return "Vector{} " + super.toString();
     }
 
-    /**
-     * throw an exception if vector == (0,0,0)
-     */
-    public void zeroVector() {
-        if (Util.isZero(this.dotProduct(new Vector(1, 1, 1)))) {
-            throw new IllegalArgumentException("Cannot get vector of zero");
-        }
-    }
-
     public Vector add(Vector vector) {
-
         return new Vector(this.xyz.add(vector.xyz));
     }
 
@@ -90,6 +79,17 @@ public class Vector extends Point {
     }
 
     /**
+     * method to find an orthogonal vector to a given vector
+     */
+    public Vector findOrthogonalVector() {
+        if (this.getX() > this.getZ()) {
+            return new Vector(this.getY(), -this.getX(), 0).normalize();
+        } else {
+            return new Vector(0, -this.getZ(), this.getY()).normalize();
+        }
+    }
+
+    /**
      * method to rotate a vector by a given angle around the z-axis
      *
      * @param angle - the angle of rotation
@@ -101,7 +101,6 @@ public class Vector extends Point {
                           this.getX() * sin(radian) + this.getY() * cos(radian) + 0,
                           0 + 0 + this.getZ());
     }
-
 
     /**
      * method to rotate a vector by a given angle around an arbitrary axis.
@@ -124,6 +123,5 @@ public class Vector extends Point {
                                   + this.getY() * (axis.getX() * sin_angle + axis.getY() * axis.getZ() * (1 - cos_angle))
                                   + this.getZ() * (cos_angle + pow(axis.getZ(), 2) * (1 - cos_angle)));
     }
-
 
 }

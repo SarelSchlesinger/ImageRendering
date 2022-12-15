@@ -122,4 +122,13 @@ public class Polygon extends Geometry {
 
         return List.of(new GeoPoint(this, intersections.get(0).point));
     }
+
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "vertices=" + vertices +
+                ", plane=" + plane +
+                ", size=" + size +
+                "} " + super.toString();
+    }
 }

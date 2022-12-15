@@ -42,9 +42,17 @@ public class Sphere extends Geometry {
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
-        Vector u = this.center.subtract(ray.getP0());
-        double tm = ray.getDirection().dotProduct(u);
-        double d = sqrt(u.lengthSquared() - tm * tm);
+        double tm;
+        double d;
+
+        if (this.center.equals(ray.getP0())) {
+            tm = 0;
+            d = 0;
+        } else {
+            Vector u = this.center.subtract(ray.getP0());
+            tm = ray.getDirection().dotProduct(u);
+            d = sqrt(u.lengthSquared() - tm * tm);
+        }
 
         if (d > this.radius) {
             return null;

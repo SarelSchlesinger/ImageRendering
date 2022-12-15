@@ -36,8 +36,7 @@ public abstract class Intersectable {
 
     public final List<Point> findIntersections(Ray ray) {
         List<GeoPoint> geoList = findGeoIntersections(ray);
-        return geoList == null ? null
-                : geoList.stream().map(gp -> gp.point).toList();
+        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
 
     public final List<GeoPoint> findGeoIntersections(Ray ray) {

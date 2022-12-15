@@ -23,6 +23,17 @@ public class Scene {
         this.lights = sceneBuilder.lights;
     }
 
+    @Override
+    public String toString() {
+        return "Scene{" +
+                "name='" + name + '\'' +
+                ", background=" + background +
+                ", ambientLight=" + ambientLight +
+                ", geometries=" + geometries +
+                ", lights=" + lights +
+                '}';
+    }
+
     public static class SceneBuilder {
         private final String name;
         private Color background = Color.BLACK;
