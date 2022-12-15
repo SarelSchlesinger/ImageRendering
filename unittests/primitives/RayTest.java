@@ -69,4 +69,8 @@ class RayTest {
 
     }
 
+    @Test
+    void testFindPointOnTheOrthogonalVector() {
+        assertEquals(new Point(1, -1, 5), ray.findPointOnTheOrthogonalVector(4, 2));
+    }
 }

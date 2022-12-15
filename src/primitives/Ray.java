@@ -101,4 +101,15 @@ public class Ray {
         }
         return closestPoint;
     }
+
+    /**
+     * method to find a point on the orthogonal vector to the ray
+     * @param distanceFromP0  distance for a point on the ray from the ray's origin point
+     * @param distanceFromRay distance for the point on the orthogonal vector to the ray.
+     *                        the vector starts from pointOnRay
+     */
+    public Point findPointOnTheOrthogonalVector(double distanceFromP0, double distanceFromRay) {
+        Point pointOnRay = this.getPoint(distanceFromP0);
+        return pointOnRay.add(this.getDirection().findOrthogonalVector().scale(distanceFromRay));
+    }
 }
