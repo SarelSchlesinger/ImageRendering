@@ -1,6 +1,7 @@
 package primitives;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,6 +61,19 @@ class VectorTest {
     void testFindOrthogonalVector() {
         assertEquals(new Vector(0, -3, 2).normalize(), v1.findOrthogonalVector(), "findOrthogonalVector() is incorrect");
         assertEquals(new Vector(0, -6, 4).normalize(), v2.findOrthogonalVector(), "findOrthogonalVector() is incorrect");
+        assertDoesNotThrow(() -> new Vector(0, 0, -1).findOrthogonalVector());
+        assertEquals(new Vector(1,0,0).normalize(), new Vector(0, 3, -5).findOrthogonalVector(), "findOrthogonalVector() is incorrect");
+        assertDoesNotThrow(() -> new Vector(0, 5, -1).findOrthogonalVector());
+    }
+
+    @Test
+    void testRotationAroundXAxis() {
+        assertEquals(new Vector(2, -5, 2), new Vector(2, 2, 5).rotationAroundXAxis(90), "rotationAroundXAxis() is incorrect");
+    }
+
+    @Test
+    void testRotationAroundYAxis() {
+        assertEquals(new Vector(5, 2, -2), new Vector(2, 2, 5).rotationAroundYAxis(90), "rotationAroundYAxis() is incorrect");
     }
 
     @Test
@@ -70,14 +84,14 @@ class VectorTest {
     @Test
     void testRotationAroundArbitraryAxis() {
         // TC1: Rotation around x-axis
-        assertEquals(new Vector(1,-2,-3), new Vector(1,2,3).rotationAroundArbitraryAxis(new Vector(1, 0, 0), 180), "rotationAroundArbitraryAxis() is incorrect");
-        assertEquals(new Vector(1,-3,2), new Vector(1,2,3).rotationAroundArbitraryAxis(new Vector(1, 0, 0), 90), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(1, -2, -3), new Vector(1, 2, 3).rotationAroundArbitraryAxis(new Vector(1, 0, 0), 180), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(1, -3, 2), new Vector(1, 2, 3).rotationAroundArbitraryAxis(new Vector(1, 0, 0), 90), "rotationAroundArbitraryAxis() is incorrect");
         // TC2: Rotation around y-axis
-        assertEquals(new Vector(-1,2,-3), new Vector(1,2,3).rotationAroundArbitraryAxis(new Vector(0, 1, 0), 180), "rotationAroundArbitraryAxis() is incorrect");
-        assertEquals(new Vector(3,2,-1), new Vector(1,2,3).rotationAroundArbitraryAxis(new Vector(0, 1, 0), 90), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(-1, 2, -3), new Vector(1, 2, 3).rotationAroundArbitraryAxis(new Vector(0, 1, 0), 180), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(3, 2, -1), new Vector(1, 2, 3).rotationAroundArbitraryAxis(new Vector(0, 1, 0), 90), "rotationAroundArbitraryAxis() is incorrect");
         // TC3: Rotation around z-axis
         assertEquals(new Vector(-2, -2, 5), new Vector(2, 2, 5).rotationAroundArbitraryAxis(new Vector(0, 0, 1), 180), "rotationAroundArbitraryAxis() is incorrect");
-        assertEquals(new Vector(-2,2,5), new Vector(2,2,5).rotationAroundArbitraryAxis(new Vector(0, 0, 1), 90), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(-2, 2, 5), new Vector(2, 2, 5).rotationAroundArbitraryAxis(new Vector(0, 0, 1), 90), "rotationAroundArbitraryAxis() is incorrect");
         // TC4: Rotation around arbitrary axis
         assertEquals(new Vector(4, 4, 1), new Vector(2, 2, 5).rotationAroundArbitraryAxis(new Vector(1, 1, 1).normalize(), 180), "rotationAroundArbitraryAxis() is incorrect");
         assertEquals(new Vector(5, 2, 2), new Vector(2, 2, 5).rotationAroundArbitraryAxis(new Vector(1, 1, 1).normalize(), 120), "rotationAroundArbitraryAxis() is incorrect");

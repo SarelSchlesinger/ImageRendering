@@ -83,10 +83,40 @@ public class Vector extends Point {
      */
     public Vector findOrthogonalVector() {
         if (this.getX() > this.getZ()) {
-            return new Vector(this.getY(), -this.getX(), 0).normalize();
+            if (isZero(this.getX())) {
+                return new Vector(1,0,0).normalize();
+            } else {
+                return new Vector(this.getY(), -this.getX(), 0).normalize();
+            }
         } else {
             return new Vector(0, -this.getZ(), this.getY()).normalize();
         }
+    }
+
+    /**
+     * method to rotate a vector by a given angle around the x-axis
+     *
+     * @param angle - the angle of rotation
+     * @return a new rotated vector
+     */
+    public Vector rotationAroundXAxis(double angle) {
+        double radian = toRadians(angle);
+        return new Vector(this.getX() + 0 + 0,
+                          0 + this.getY() * cos(radian) - this.getZ() * sin(radian),
+                          0 + this.getY() * sin(radian) + this.getZ() * cos(radian));
+    }
+
+    /**
+     * method to rotate a vector by a given angle around the y-axis
+     *
+     * @param angle - the angle of rotation
+     * @return a new rotated vector
+     */
+    public Vector rotationAroundYAxis(double angle) {
+        double radian = toRadians(angle);
+        return new Vector(this.getX() * cos(radian) + 0 + this.getZ() * sin(radian),
+                          0 + this.getY() + 0,
+                          -this.getX() * sin(radian) + 0 + this.getZ() * cos(radian));
     }
 
     /**
