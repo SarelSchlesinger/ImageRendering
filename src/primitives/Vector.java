@@ -157,8 +157,8 @@ public class Vector extends Point {
     /**
      * method to select the appropriate rotation method for this particular rotation axis
      *
-     * @param axis   - the axis of the rotation
-     * @param angle- the angle of rotation
+     * @param axis  - the axis of the rotation
+     * @param angle - the angle of rotation
      */
     public Vector rotateVector(Vector axis, double angle) {
         Vector normalizedVector = axis.normalize();
