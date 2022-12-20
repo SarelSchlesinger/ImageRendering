@@ -49,16 +49,16 @@ public class Diamond extends Geometries {
         for (int i = 0; i < this.sides; i++) {
             Point p1 = this.bottomPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.distanceFromBottomPoint, this.radius)
                                                                .subtract(this.bottomPoint)
-                                                               .rotationAroundArbitraryAxis(this.rotationAxis, (360 / this.sides) * i));
+                                                               .rotateVector(this.rotationAxis, (360 / this.sides) * i));
             Point p2 = this.bottomPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.distanceFromBottomPoint, this.radius)
                                                                .subtract(this.bottomPoint)
-                                                               .rotationAroundArbitraryAxis(this.rotationAxis, (360 / this.sides) * (i + 1)));
+                                                               .rotateVector(this.rotationAxis, (360 / this.sides) * (i + 1)));
             Point p3 = this.topPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
                                                             .subtract(topPoint)
-                                                            .rotationAroundArbitraryAxis(this.rotationAxis, (360 / this.sides) * i));
+                                                            .rotateVector(this.rotationAxis, (360 / this.sides) * i));
             Point p4 = this.topPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
                                                             .subtract(topPoint)
-                                                            .rotationAroundArbitraryAxis(this.rotationAxis, (360 / this.sides) * (i + 1)));
+                                                            .rotateVector(this.rotationAxis, (360 / this.sides) * (i + 1)));
             Collections.addAll(this.geometriesList,
                                // creating the triangles at the bottom of the diamond
                                new Triangle(this.bottomPoint, p1, p2)

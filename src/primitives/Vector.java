@@ -84,7 +84,7 @@ public class Vector extends Point {
     public Vector findOrthogonalVector() {
         if (this.getX() > this.getZ()) {
             if (isZero(this.getX())) {
-                return new Vector(1,0,0).normalize();
+                return new Vector(1, 0, 0).normalize();
             } else {
                 return new Vector(this.getY(), -this.getX(), 0).normalize();
             }
@@ -134,14 +134,14 @@ public class Vector extends Point {
 
     /**
      * method to rotate a vector by a given angle around an arbitrary axis.
-     * this calculation is based on https://mathworld.wolfram.com/RodriguesRotationFormula.html
+     * this calculation is based on <a href="https://mathworld.wolfram.com/RodriguesRotationFormula.html">...</a>
      *
-     * @param axis  - the axis of the rotation
-     * @param angle - the angle of rotation
+     * @param normalizedVector - the axis of the rotation
+     * @param angle            - the angle of rotation
      * @return a new rotated vector
      */
-    public Vector rotationAroundArbitraryAxis(Vector axis, double angle) {
-        Vector normalizedVector = axis.normalize();
+    public Vector rotationAroundArbitraryAxis(Vector normalizedVector, double angle) {
+
         double cos_angle = cos(toRadians(angle));
         double sin_angle = sin(toRadians(angle));
         return new Vector(this.getX() * (cos_angle + pow(normalizedVector.getX(), 2) * (1 - cos_angle))
@@ -153,6 +153,19 @@ public class Vector extends Point {
                           this.getX() * (-normalizedVector.getY() * sin_angle + normalizedVector.getX() * normalizedVector.getZ() * (1 - cos_angle))
                                   + this.getY() * (normalizedVector.getX() * sin_angle + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos_angle))
                                   + this.getZ() * (cos_angle + pow(normalizedVector.getZ(), 2) * (1 - cos_angle)));
+    }
+
+    public Vector rotateVector(Vector axis, double angle) {
+        Vector normalizedVector = axis.normalize();
+        if (isZero(normalizedVector.getY()) && isZero(normalizedVector.getZ())) {
+            return this.rotationAroundXAxis(angle);
+        } else if (isZero(normalizedVector.getX()) && isZero(normalizedVector.getZ())) {
+            return this.rotationAroundYAxis(angle);
+        } else if (isZero(normalizedVector.getX()) && isZero(normalizedVector.getY())) {
+            return this.rotationAroundZAxis(angle);
+        } else {
+            return this.rotationAroundArbitraryAxis(normalizedVector, angle);
+        }
     }
 
 }
