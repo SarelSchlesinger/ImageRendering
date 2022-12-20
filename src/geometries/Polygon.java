@@ -90,6 +90,14 @@ public class Polygon extends Geometry {
         return plane.getNormal();
     }
 
+    public List<Point> getVertices() {
+        return this.vertices;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
