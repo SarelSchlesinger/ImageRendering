@@ -141,7 +141,6 @@ public class Vector extends Point {
      * @return a new rotated vector
      */
     public Vector rotationAroundArbitraryAxis(Vector normalizedVector, double angle) {
-
         double cos_angle = cos(toRadians(angle));
         double sin_angle = sin(toRadians(angle));
         return new Vector(this.getX() * (cos_angle + pow(normalizedVector.getX(), 2) * (1 - cos_angle))
@@ -155,6 +154,12 @@ public class Vector extends Point {
                                   + this.getZ() * (cos_angle + pow(normalizedVector.getZ(), 2) * (1 - cos_angle)));
     }
 
+    /**
+     * method to select the appropriate rotation method for this particular rotation axis
+     *
+     * @param axis   - the axis of the rotation
+     * @param angle- the angle of rotation
+     */
     public Vector rotateVector(Vector axis, double angle) {
         Vector normalizedVector = axis.normalize();
         if (isZero(normalizedVector.getY()) && isZero(normalizedVector.getZ())) {
