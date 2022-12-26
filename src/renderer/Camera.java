@@ -9,7 +9,7 @@ import static primitives.Util.isZero;
 public class Camera {
 
     private Point cameraPosition;
-    private Vector vUp, vTo, vRight;
+    private Vector vTo, vUp, vRight;
     private double height, width, distance;
     private ImageWriter imageWriter;
     private RayTracer rayTracer;
@@ -163,5 +163,13 @@ public class Camera {
                 }
             }
         }
+    }
+
+    public Camera rotateCamera(Ray rotationAxis, double angle) {
+        this.cameraPosition = rotationAxis.getP0().add(this.cameraPosition.subtract(rotationAxis.getP0()).rotateVector(rotationAxis.getDirection(), angle));
+        this.vTo = this.vTo.rotateVector(rotationAxis.getDirection(), angle);
+        this.vUp = this.vUp.rotateVector(rotationAxis.getDirection(), angle);
+        this.vRight = this.vTo.crossProduct(this.vUp);
+        return this;
     }
 }
