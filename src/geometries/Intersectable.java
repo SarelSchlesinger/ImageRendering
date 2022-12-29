@@ -34,6 +34,11 @@ public abstract class Intersectable {
         }
     }
 
+    /**
+     * method to find all intersection points between a given ray and the geometry
+     * @param ray - ray that intersects the geometry
+     * @return list of intersection points
+     */
     public final List<Point> findIntersections(Ray ray) {
         List<GeoPoint> geoList = findGeoIntersections(ray);
         return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
