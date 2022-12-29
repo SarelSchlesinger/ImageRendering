@@ -18,35 +18,30 @@ class TriangleTest {
 
     Point p4 = new Point(1, 1, 0);  // A point inside the area of the triangle
 
+    Ray ray1 = new Ray(new Point(0, 0, -3), new Vector(1, 1, 1));
+    Ray ray2 = new Ray(new Point(1, 1, -3), new Vector(-4, -4, 7));
+    Ray ray3 = new Ray(new Point(0, 0, -3), new Vector(1, 1, 8));
+    Ray ray4 = new Ray(new Point(0, 1, -1), new Vector(0, 0, 1));
+    Ray ray5 = new Ray(new Point(0, 0, -1), new Vector(0, 0, 1));
+    Ray ray6 = new Ray(new Point(0, 0, -1), new Vector(10, -1, 1));
+    Ray ray7 = new Ray(new Point(-1, -1, 0), new Vector(1, 1, 0));
+    Ray ray8 = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
+
+    @Test
+    void testIsInside() {
+        assertTrue(triangle.isInside(p4));
+        assertFalse(triangle.isInside(new Point(3,3,0)));
+        assertFalse(triangle.isInside(p1));
+        assertFalse(triangle.isInside(new Point(1,0,0)));
+    }
+
     @Test
     void testGetNormal() {
-
-        // Check if the point inside the area of the triangle
-        // this compute was taken from https://math.stackexchange.com/questions/4322/check-whether-a-point-is-within-a-3d-triangle
-        double triangleArea = p2.subtract(p1).crossProduct(p3.subtract(p1)).length() * 0.5;
-        double firstThirdOfTheTriangle = p2.subtract(p4).crossProduct(p3.subtract(p4)).length() / (2 * triangleArea);
-        double secondThirdOfTheTriangle = p3.subtract(p4).crossProduct(p1.subtract(p4)).length() / (2 * triangleArea);
-        double thirdThirdOfTheTriangle = 1 - firstThirdOfTheTriangle - secondThirdOfTheTriangle;
-
-        assertTrue(firstThirdOfTheTriangle >= 0 && secondThirdOfTheTriangle >= 0 && thirdThirdOfTheTriangle >= 0 &&
-                           firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1,
-                   "The given point is not inside the triangle");
-
         assertEquals(triangle.plane.getNormal(), triangle.getNormal(p4), "getNormal() is incorrect");
-
     }
 
     @Test
     void testFindIntersections() {
-
-        Ray ray1 = new Ray(new Point(0, 0, -3), new Vector(1, 1, 1));
-        Ray ray2 = new Ray(new Point(1, 1, -3), new Vector(-4, -4, 7));
-        Ray ray3 = new Ray(new Point(0, 0, -3), new Vector(1, 1, 8));
-        Ray ray4 = new Ray(new Point(0, 1, -1), new Vector(0, 0, 1));
-        Ray ray5 = new Ray(new Point(0, 0, -1), new Vector(0, 0, 1));
-        Ray ray6 = new Ray(new Point(0, 0, -1), new Vector(10, -1, 1));
-        Ray ray7 = new Ray(new Point(-1, -1, 0), new Vector(1, 1, 0));
-        Ray ray8 = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
 
         // ============ Equivalence Partitions Tests ==============
 

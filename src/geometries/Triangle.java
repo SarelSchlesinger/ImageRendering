@@ -16,6 +16,22 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
+    /**
+     * Boolean method to check if a given point is inside the triangle
+     * This compute was taken from <a href="https://math.stackexchange.com/questions/4322/check-whether-a-point-is-within-a-3d-triangle">...</a>
+     */
+    public Boolean isInside(Point point) {
+        if (point.isOnEdge(this)) return false;
+        double triangleArea = this.vertices.get(1).subtract(this.vertices.get(0)).crossProduct(this.vertices.get(2).subtract(this.vertices.get(0))).length() * 0.5;
+        double firstThirdOfTheTriangle = this.vertices.get(1).subtract(point).crossProduct(this.vertices.get(2).subtract(point)).length() / (2 * triangleArea);
+        double secondThirdOfTheTriangle = this.vertices.get(2).subtract(point).crossProduct(this.vertices.get(0).subtract(point)).length() / (2 * triangleArea);
+        double thirdThirdOfTheTriangle = this.vertices.get(0).subtract(point).crossProduct(this.vertices.get(1).subtract(point)).length() / (2 * triangleArea);
+
+        return firstThirdOfTheTriangle >= 0 && secondThirdOfTheTriangle >= 0 && thirdThirdOfTheTriangle >= 0 &&
+                firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1 &&
+                firstThirdOfTheTriangle + secondThirdOfTheTriangle + thirdThirdOfTheTriangle == 1;
+    }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         // Check if the point inside the area of the triangle
@@ -49,7 +65,6 @@ public class Triangle extends Polygon {
                 return List.of(new GeoPoint(this, ray.getPoint(t)));
             }
         }
-
         return null;
     }
 
