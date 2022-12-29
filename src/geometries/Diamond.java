@@ -9,7 +9,7 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-public class Diamond extends Geometries {
+public class Diamond extends Geometry {
 
     final int sides;
     final Point bottomPoint;
@@ -21,6 +21,7 @@ public class Diamond extends Geometries {
     final Point topPoint;
     final Color firstColor;
     final Color secondColor;
+    List<Geometry> triangles = new ArrayList<>();
 
     public Diamond(int sides, Point bottomPoint, double height, double distanceFromBottomPoint, double radius, Vector rotationAxis, Color firstColor, Color secondColor) {
         if (sides <= 0) {
@@ -59,7 +60,7 @@ public class Diamond extends Geometries {
             Point p4 = this.topPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
                                                             .subtract(topPoint)
                                                             .rotateVector(this.rotationAxis, (360d / this.sides) * (i + 1)));
-            Collections.addAll(this.geometriesList,
+            Collections.addAll(this.triangles,
                                // creating the triangles at the bottom of the diamond
                                new Triangle(this.bottomPoint, p1, p2)
                                        .setEmission((i % 2 == 0) ? this.firstColor : this.secondColor)
@@ -83,7 +84,7 @@ public class Diamond extends Geometries {
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> intersections = new ArrayList<>();
-        for (Intersectable geometry : this.geometriesList) {
+        for (Intersectable geometry : this.triangles) {
             // Check if the point inside the area of the triangle
             Triangle triangle = (Triangle) geometry;
             Vector v1 = triangle.getVertices().get(0).subtract(ray.getP0());
@@ -114,5 +115,20 @@ public class Diamond extends Geometries {
         }
         if (intersections.isEmpty()) return null;
         return intersections;
+    }
+
+    public List<Geometry> getTriangles() {
+        return this.triangles;
+    }
+
+    @Override
+    public Vector getNormal(Point point) {
+        for (Intersectable geometry : this.triangles) {
+            Triangle triangle = (Triangle) geometry;
+            if (triangle.isInside(point)) {
+                return triangle.getNormal(point);
+            }
+        }
+        return null;
     }
 }

@@ -7,8 +7,7 @@ import primitives.*;
 import static primitives.Util.*;
 
 /**
- * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
- * system
+ * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate system
  *
  * @author Dan
  */
@@ -21,7 +20,6 @@ public class Polygon extends Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane plane;
-    private int size;
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -82,21 +80,19 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
-        size = vertices.length;
     }
 
     @Override
     public Vector getNormal(Point point) {
-        return plane.getNormal();
+        return this.plane.getNormal();
     }
-
     public List<Point> getVertices() {
         return this.vertices;
     }
-
     public Plane getPlane() {
-        return plane;
+        return this.plane;
     }
+    public int getSize() { return this.vertices.size(); }
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
@@ -136,7 +132,7 @@ public class Polygon extends Geometry {
         return "Polygon{" +
                 "vertices=" + vertices +
                 ", plane=" + plane +
-                ", size=" + size +
+                ", size=" + vertices.size() +
                 "} " + super.toString();
     }
 }
