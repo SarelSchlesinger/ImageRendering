@@ -1,5 +1,7 @@
 package primitives;
 
+import geometries.Polygon;
+
 public class Point {
 
     final Double3 xyz;
@@ -71,6 +73,26 @@ public class Point {
         return new Point((this.getX() + point.getX()) / 2,
                          (this.getY() + point.getY()) / 2,
                          (this.getZ() + point.getZ()) / 2);
+    }
+
+    /**
+     * Return true if the point located between two given points
+     */
+    public Boolean isBetween(Point p1, Point p2) {
+        if (this.equals(p1) || this.equals(p2)) return false;
+        return p1.distance(p2) == p1.distance(this) + this.distance(p2);
+    }
+
+    /**
+     * Returns true if the point is located on one of the edges of the polygon
+     */
+    public Boolean isOnEdge(Polygon polygon) {
+        for (int i = 0; i < polygon.getSize() - 1; i++) {
+            if (this.equals(polygon.getVertices().get(i))) return true;
+            if (this.isBetween(polygon.getVertices().get(i), polygon.getVertices().get(i + 1))) return true;
+        }
+        if (this.equals(polygon.getVertices().get(polygon.getSize() - 1))) return true;
+        return this.isBetween(polygon.getVertices().get(0), polygon.getVertices().get(polygon.getSize() - 1));
     }
 }
 
