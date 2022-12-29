@@ -84,43 +84,14 @@ public class diamondsScene {
                                        new Color(GREEN),
                                        new Color(PINK));
 
-        List<Diamond> diamondsList = List.of(diamond1,diamond2,diamond3,diamond4,diamond5);
+        List<Diamond> diamondsList = List.of(diamond1, diamond2, diamond3, diamond4, diamond5);
 
-        for (Diamond diamond: diamondsList) {
+        for (Diamond diamond : diamondsList) {
             for (Intersectable triangle : diamond.getTriangles()) {
                 scene.getGeometries().add(triangle);
             }
         }
 
-
-
-//        for (int i = 0; i < diamond1.getTriangles().size(); i++) {
-//            scene.getGeometries().add(diamond1.getTriangles().get(i));
-//            scene.getGeometries().add(diamond2.getTriangles().get(i));
-//            scene.getGeometries().add(diamond3.getTriangles().get(i));
-//            scene.getGeometries().add(diamond4.getTriangles().get(i));
-//            scene.getGeometries().add(diamond5.getTriangles().get(i));
-//        }
-
-//        for (Intersectable triangle : diamond1.getTriangles()) {
-//            scene.getGeometries().add(triangle);
-//        }
-//
-//        for (Intersectable triangle : diamond2.getTriangles()) {
-//            scene.getGeometries().add(triangle);
-//        }
-//
-//        for (Intersectable triangle : diamond3.getTriangles()) {
-//            scene.getGeometries().add(triangle);
-//        }
-//
-//        for (Intersectable triangle : diamond4.getTriangles()) {
-//            scene.getGeometries().add(triangle);
-//        }
-//
-//        for (Intersectable triangle : diamond5.getTriangles()) {
-//            scene.getGeometries().add(triangle);
-//        }
 
         ImageWriter imageWriter1 = new ImageWriter("24 diamondsScene from X-axis", 500, 500);
 
