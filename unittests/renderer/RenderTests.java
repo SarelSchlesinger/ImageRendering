@@ -33,7 +33,7 @@ public class RenderTests {
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneDistance(100)
                 .setViewPlaneSize(500, 500)
-                .setImageWriter(new ImageWriter("02 twoColorsRenderTest", 1000, 1000))
+                .setImageWriter(new ImageWriter("0002twoColorsRenderTest", 1000, 1000))
                 .setRayTracer(new RayTracerBasic(scene));
 
 
@@ -72,7 +72,7 @@ public class RenderTests {
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneDistance(100)
                 .setViewPlaneSize(500, 500)
-                .setImageWriter(new ImageWriter("03 multiColorsRenderTest", 1000, 1000))
+                .setImageWriter(new ImageWriter("0003multiColorsRenderTest", 1000, 1000))
                 .setRayTracer(new RayTracerBasic(scene));
 
         camera.renderImage();

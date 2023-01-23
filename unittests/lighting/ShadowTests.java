@@ -48,7 +48,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleInitial() {
-        sphereTriangleHelper("14 shadowSphereTriangleInitial",
+        sphereTriangleHelper("0014 shadowSphereTriangleInitial",
                              new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)),
                              new Point(-100, -100, 200));
     }
@@ -58,7 +58,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove1() {
-        sphereTriangleHelper("15 shadowSphereTriangleMove2",
+        sphereTriangleHelper("0015 shadowSphereTriangleMove2",
                              new Triangle(new Point(-62, -32, 0), new Point(-32, -62, 0), new Point(-60, -60, -4)),
                              new Point(-100, -100, 200));
     }
@@ -68,7 +68,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove2() {
-        sphereTriangleHelper("16 shadowSphereTriangleMove1",
+        sphereTriangleHelper("0016 shadowSphereTriangleMove1",
                              new Triangle(new Point(-49, -19, 0), new Point(-19, -49, 0), new Point(-47, -47, -4)),
                              new Point(-100, -100, 200));
     }
@@ -78,7 +78,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleSpot1() {
-        sphereTriangleHelper("17 shadowSphereTriangleSpot1",
+        sphereTriangleHelper("0017 shadowSphereTriangleSpot1",
                              new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)),
                              new Point(-88, -88, 120));
     }
@@ -88,7 +88,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleSpot2() {
-        sphereTriangleHelper("18 shadowSphereTriangleSpot2",
+        sphereTriangleHelper("0018 shadowSphereTriangleSpot2",
                              new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)),
                              new Point(-76, -76, 70));
     }
@@ -113,7 +113,7 @@ public class ShadowTests {
                 new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4))
                         .setKl(4E-4).setKq(2E-5));
 
-        camera.setImageWriter(new ImageWriter("19 shadowTrianglesSphere", 600, 600)).renderImage().writeToImage();
+        camera.setImageWriter(new ImageWriter("0019 shadowTrianglesSphere", 600, 600)).renderImage().writeToImage();
     }
 
 }

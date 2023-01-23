@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static java.awt.Color.*;
 
-import renderer.ImageWriter;
-import lighting.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -47,7 +45,7 @@ public class ReflectionRefractionTests {
                 new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2))
                         .setKl(0.0004).setKq(0.0000006));
 
-        camera.setImageWriter(new ImageWriter("20 refractionTwoSpheres", 500, 500))
+        camera.setImageWriter(new ImageWriter("0020refractionTwoSpheres", 500, 500))
               .setRayTracer(new RayTracerBasic(scene1))
               .renderImage()
               .writeToImage();
@@ -80,7 +78,7 @@ public class ReflectionRefractionTests {
                 new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4))
                         .setKl(0.00001).setKq(0.000005));
 
-        ImageWriter imageWriter = new ImageWriter("21 reflectionTwoSpheresMirrored", 500, 500);
+        ImageWriter imageWriter = new ImageWriter("0021reflectionTwoSpheresMirrored", 500, 500);
         camera.setImageWriter(imageWriter)
               .setRayTracer(new RayTracerBasic(scene2))
               .renderImage()
@@ -110,7 +108,7 @@ public class ReflectionRefractionTests {
                 new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
                         .setKl(4E-5).setKq(2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("22 refractionShadow", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("0022refractionShadow", 600, 600);
         camera.setImageWriter(imageWriter)
               .setRayTracer(new RayTracerBasic(scene3))
               .renderImage()

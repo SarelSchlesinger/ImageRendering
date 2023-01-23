@@ -46,7 +46,7 @@ public final class basicDiamond {
             scene.getGeometries().add(triangle);
         }
 
-        camera.setImageWriter(new ImageWriter("23 basic diamond", 500, 500))
+        camera.setImageWriter(new ImageWriter("0023basicDiamond", 500, 500))
               .setRayTracer(new RayTracerBasic(scene))
               .renderImage()
               .writeToImage();
