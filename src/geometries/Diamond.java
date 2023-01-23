@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 public class Diamond extends Geometry {
 
@@ -94,12 +93,15 @@ public class Diamond extends Geometry {
             Vector n2 = v2.crossProduct(v3).normalize();
             Vector n3 = v3.crossProduct(v1).normalize();
 
-            if ((ray.getDirection().dotProduct(n1) < 0 &&
-                    ray.getDirection().dotProduct(n2) < 0 &&
-                    ray.getDirection().dotProduct(n3) < 0) ||
-                    (ray.getDirection().dotProduct(n1) > 0 &&
-                            ray.getDirection().dotProduct(n2) > 0 &&
-                            ray.getDirection().dotProduct(n3) > 0)) {
+//            if ((ray.getDirection().dotProduct(n1) < 0 &&
+//                    ray.getDirection().dotProduct(n2) < 0 &&
+//                    ray.getDirection().dotProduct(n3) < 0) ||
+//                    (ray.getDirection().dotProduct(n1) > 0 &&
+//                            ray.getDirection().dotProduct(n2) > 0 &&
+//                            ray.getDirection().dotProduct(n3) > 0)) {
+            if (checkSign(ray.getDirection().dotProduct(n1),
+                          ray.getDirection().dotProduct(n2),
+                          ray.getDirection().dotProduct(n3))) {
 
                 double numerator = triangle.getPlane().getNormal().dotProduct(triangle.getPlane().getP0().subtract(ray.getP0()));
                 double denominator = triangle.getPlane().getNormal().dotProduct(ray.getDirection());

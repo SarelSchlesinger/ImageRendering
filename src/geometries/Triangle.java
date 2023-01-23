@@ -6,8 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 public class Triangle extends Polygon {
 
@@ -42,12 +41,9 @@ public class Triangle extends Polygon {
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();
 
-        if ((ray.getDirection().dotProduct(n1) < 0 &&
-                ray.getDirection().dotProduct(n2) < 0 &&
-                ray.getDirection().dotProduct(n3) < 0) ||
-                (ray.getDirection().dotProduct(n1) > 0 &&
-                        ray.getDirection().dotProduct(n2) > 0 &&
-                        ray.getDirection().dotProduct(n3) > 0)) {
+        if (checkSign(ray.getDirection().dotProduct(n1),
+                      ray.getDirection().dotProduct(n2),
+                      ray.getDirection().dotProduct(n3))) {
 
             double numerator = this.plane.getNormal().dotProduct(this.plane.getP0().subtract(ray.getP0()));
             double denominator = this.plane.getNormal().dotProduct(ray.getDirection());
