@@ -48,6 +48,17 @@ public abstract class Util {
     }
 
     /**
+     * Check whether two numbers have the same sign
+     *
+     * @param n1 1st number
+     * @param n2 2nd number
+     * @return true if the numbers have the same sign
+     */
+    public static boolean checkSign(double n1, double n2) {
+        return (n1 < 0 && n2 < 0) || (n1 > 0 && n2 > 0);
+    }
+
+    /**
      * Check whether three numbers have the same sign
      *
      * @param n1 1st number

@@ -112,15 +112,13 @@ public class Polygon extends Geometry {
 
             otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(i).subtract(ray.getP0()).crossProduct(this.vertices.get(i + 1).subtract(ray.getP0())).normalize()));
 
-            if (!((firstVecDotNormal < 0 && otherVecDotNormal < 0) ||
-                    (firstVecDotNormal > 0 && otherVecDotNormal > 0))) {
+            if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
                 return null;
             }
         }
 
         otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(this.vertices.size() - 1).subtract(ray.getP0()).crossProduct(this.vertices.get(0).subtract(ray.getP0())).normalize()));
-        if (!((firstVecDotNormal < 0 && otherVecDotNormal < 0) ||
-                (firstVecDotNormal > 0 && otherVecDotNormal > 0))) {
+        if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
             return null;
         }
 
