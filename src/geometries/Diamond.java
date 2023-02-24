@@ -93,12 +93,6 @@ public class Diamond extends Geometry {
             Vector n2 = v2.crossProduct(v3).normalize();
             Vector n3 = v3.crossProduct(v1).normalize();
 
-//            if ((ray.getDirection().dotProduct(n1) < 0 &&
-//                    ray.getDirection().dotProduct(n2) < 0 &&
-//                    ray.getDirection().dotProduct(n3) < 0) ||
-//                    (ray.getDirection().dotProduct(n1) > 0 &&
-//                            ray.getDirection().dotProduct(n2) > 0 &&
-//                            ray.getDirection().dotProduct(n3) > 0)) {
             if (checkSign(ray.getDirection().dotProduct(n1),
                           ray.getDirection().dotProduct(n2),
                           ray.getDirection().dotProduct(n3))) {
