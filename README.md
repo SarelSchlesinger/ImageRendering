@@ -1,6 +1,8 @@
 # Image Rendering
 
-A graphical engine for creating moving objects in a three-dimensional space using the techniques of ray casting and ray tracing.
+An ongoing project of a graphical engine for generating moving objects in 3D using the Phong reflection model by ray casting and ray tracing techniques.
+
+> The Phong reflection model simulates light interacting with surfaces in computer graphics, using ambient, diffuse, and specular components to calculate pixel color.
 
 > Ray casting is a simple technique where rays are shot from the camera into the scene, and the first object that intersects with each ray determines the color of the pixel. It is a quick way to generate images, but it does not take into account reflections or shadows.
 
