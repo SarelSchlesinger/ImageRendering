@@ -86,13 +86,18 @@ public class Polygon extends Geometry {
     public Vector getNormal(Point point) {
         return this.plane.getNormal();
     }
+
     public List<Point> getVertices() {
         return this.vertices;
     }
+
     public Plane getPlane() {
         return this.plane;
     }
-    public int getSize() { return this.vertices.size(); }
+
+    public int getSize() {
+        return this.vertices.size();
+    }
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
@@ -105,19 +110,19 @@ public class Polygon extends Geometry {
         }
 
         // rayDirection.dotProduct(Normal)
-        double firstVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(0).subtract(ray.getP0()).crossProduct(this.vertices.get(1).subtract(ray.getP0())).normalize()));
+        double firstVecDotNormal = alignZero(ray.getDirection().dotProduct(this.plane.findNormal(ray.getP0(), this.vertices.get(0), this.vertices.get(1))));
         double otherVecDotNormal;
 
         for (int i = 1; i < this.vertices.size() - 1; i++) {
 
-            otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(i).subtract(ray.getP0()).crossProduct(this.vertices.get(i + 1).subtract(ray.getP0())).normalize()));
+            otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.plane.findNormal(ray.getP0(), this.vertices.get(i), this.vertices.get(i + 1))));
 
             if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
                 return null;
             }
         }
 
-        otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.vertices.get(this.vertices.size() - 1).subtract(ray.getP0()).crossProduct(this.vertices.get(0).subtract(ray.getP0())).normalize()));
+        otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.plane.findNormal(ray.getP0(), this.vertices.get(this.getSize() - 1), this.vertices.get(0))));
         if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
             return null;
         }

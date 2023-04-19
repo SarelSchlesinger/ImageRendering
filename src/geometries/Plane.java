@@ -29,7 +29,7 @@ public class Plane extends Geometry {
         }
 
         this.p0 = p1;
-        this.normal = p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
+        this.normal = findNormal(p1,p2,p3);
 
     }
 
@@ -44,6 +44,10 @@ public class Plane extends Geometry {
         }
         this.p0 = p0;
         this.normal = normal.normalize();
+    }
+
+    protected Vector findNormal(Point p1, Point p2, Point p3) {
+        return p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
     }
 
     @Override
