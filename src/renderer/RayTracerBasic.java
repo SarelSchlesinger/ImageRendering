@@ -80,8 +80,6 @@ public class RayTracerBasic extends RayTracer {
                     Color lightIntensity = lightSource.getIntensity(geoPoint.point).scale(ktr);
                     color = color.add(lightIntensity.scale(calcDiffusive(material, nl)),
                                       lightIntensity.scale(calcSpecular(material, normal, lightDirection, nl, ray.getDirection())));
-//                            iL.scale(),
-//                            iL.scale();
                 }
             }
         }

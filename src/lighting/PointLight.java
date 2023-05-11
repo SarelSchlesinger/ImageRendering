@@ -10,14 +10,14 @@ public class PointLight extends Light implements LightSource {
 
     private final Point position;
     /**
-     * kL, kC and kQ are constants variables for attenuation
-     * kL -  for fixed attenuation dependent on distance
-     * kC - for fixed attenuation non-dependent on distance
-     * kQ - for fixed attenuation depending on the square distance
+     * kConstant, kLinear and kQuadratic are constants variables for attenuation
+     * kLinear -  for fixed attenuation dependent on distance
+     * kConstant - for fixed attenuation non-dependent on distance
+     * kQuadratic - for fixed attenuation depending on the square distance
      */
-    private double kL = 0d;
-    private double kC = 1d;
-    private double kQ = 0d;
+    private double kConstant = 1d;
+    private double kLinear = 0d;
+    private double kQuadratic = 0d;
 
     public PointLight(Color intensity, Point position) {
         super(intensity);
@@ -28,7 +28,7 @@ public class PointLight extends Light implements LightSource {
     public Color getIntensity(Point point) {
         Color Ic = this.getIntensity();
         double distance = alignZero(point.distance(this.position));
-        double factor = this.kC + this.kL * distance + this.kQ * distance * distance;
+        double factor = this.kConstant + this.kLinear * distance + this.kQuadratic * distance * distance;
         return Ic.reduce(factor);
     }
 
@@ -43,26 +43,26 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * kL -  set fixed attenuation dependent on distance
+     * kConstant - set fixed attenuation non-dependent on distance
      */
-    public PointLight setKl(double kL) {
-        this.kL = kL;
+    public PointLight setkConstant(double kConstant) {
+        this.kConstant = kConstant;
         return this;
     }
 
     /**
-     * kC - set fixed attenuation non-dependent on distance
+     * kLinear -  set fixed attenuation dependent on distance
      */
-    public PointLight setKc(double kC) {
-        this.kC = kC;
+    public PointLight setkLinear(double kLinear) {
+        this.kLinear = kLinear;
         return this;
     }
 
     /**
-     * kQ - for fixed attenuation depending on the square distance
+     * kQuadratic - for fixed attenuation depending on the square distance
      */
-    public PointLight setKq(double kQ) {
-        this.kQ = kQ;
+    public PointLight setkQuadratic(double kQuadratic) {
+        this.kQuadratic = kQuadratic;
         return this;
     }
 }
