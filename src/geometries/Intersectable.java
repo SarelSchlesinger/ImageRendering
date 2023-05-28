@@ -32,6 +32,15 @@ public abstract class Intersectable {
                     ", point=" + point +
                     '}';
         }
+
+        public Geometry getGeometry() {
+            return geometry;
+        }
+
+        public Point getPoint() {
+            return point;
+        }
+
     }
 
     /**

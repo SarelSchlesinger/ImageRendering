@@ -51,20 +51,20 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return p0.equals(ray.p0) && direction.equals(ray.direction);
+        return this.p0.equals(ray.p0) && this.direction.equals(ray.direction);
     }
 
     @Override
     public String toString() {
-        return "Ray{" + "p0=" + p0 + ", direction=" + direction + '}';
+        return "Ray{" + "p0=" + this.p0 + ", direction=" + this.direction + '}';
     }
 
     public Point getP0() {
-        return p0;
+        return this.p0;
     }
 
     public Vector getDirection() {
-        return direction;
+        return this.direction;
     }
 
     public Point getPoint(double t) {
@@ -77,26 +77,26 @@ public class Ray {
             return null;
         }
         Point closestPoint = points.get(0);
-        double closestPointDistance = this.p0.distance(points.get(0));
+        double closestPointDistance = this.getP0().distance(points.get(0));
         for (int i = 1; i < points.size(); i++) {
-            if (this.p0.distance(points.get(i)) < closestPointDistance) {
+            if (this.getP0().distance(points.get(i)) < closestPointDistance) {
                 closestPoint = points.get(i);
-                closestPointDistance = this.p0.distance(points.get(i));
+                closestPointDistance = this.getP0().distance(points.get(i));
             }
         }
         return closestPoint;
     }
 
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
-        if (geoPoints == null) {
+        if (geoPoints.isEmpty()) {
             return null;
         }
         GeoPoint closestPoint = geoPoints.get(0);
-        double closestPointDistance = this.p0.distance(geoPoints.get(0).point);
+        double closestPointDistance = this.getP0().distance(geoPoints.get(0).getPoint());
         for (int i = 1; i < geoPoints.size(); i++) {
-            if (this.p0.distance(geoPoints.get(i).point) < closestPointDistance) {
+            if (this.getP0().distance(geoPoints.get(i).getPoint()) < closestPointDistance) {
                 closestPoint = geoPoints.get(i);
-                closestPointDistance = this.p0.distance(geoPoints.get(i).point);
+                closestPointDistance = this.getP0().distance(geoPoints.get(i).getPoint());
             }
         }
         return closestPoint;

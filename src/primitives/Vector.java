@@ -1,7 +1,6 @@
 package primitives;
 
 import static java.lang.Math.sqrt;
-import static java.lang.Math.abs;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.pow;
@@ -69,14 +68,15 @@ public class Vector extends Point {
     }
 
     public Vector normalize() {
-
         return new Vector(this.xyz.reduce(this.length()));
     }
 
+    public Vector reverse() {
+        return new Vector(-this.getX(), -this.getY(), -this.getZ());
+    }
+
     public Boolean isParallel(Vector vector) {
-        Vector v1 = this.normalize();
-        Vector v2 = vector.normalize();
-        return abs(v1.getX()) == abs(v2.getX()) && abs(v1.getY()) == abs(v2.getY()) && abs(v1.getZ()) == abs(v2.getZ());
+        return pow(this.dotProduct(vector), 2) == this.lengthSquared() * vector.lengthSquared();
     }
 
     /**
@@ -85,7 +85,7 @@ public class Vector extends Point {
     public Vector findOrthogonalVector() {
         if (this.getX() > this.getZ()) {
             if (isZero(this.getX())) {
-                return new Vector(1, 0, 0).normalize();
+                return new Vector(1, 0, 0);
             } else {
                 return new Vector(this.getY(), -this.getX(), 0).normalize();
             }
@@ -162,15 +162,15 @@ public class Vector extends Point {
      * @param angle - the angle of rotation
      */
     public Vector rotateVector(Vector axis, double angle) {
-        Vector normalizedVector = axis.normalize();
-        if (isZero(normalizedVector.getY()) && isZero(normalizedVector.getZ())) {
+        Vector normalizedAxisVector = axis.normalize();
+        if (isZero(normalizedAxisVector.getY()) && isZero(normalizedAxisVector.getZ())) {
             return this.rotationAroundXAxis(angle);
-        } else if (isZero(normalizedVector.getX()) && isZero(normalizedVector.getZ())) {
+        } else if (isZero(normalizedAxisVector.getX()) && isZero(normalizedAxisVector.getZ())) {
             return this.rotationAroundYAxis(angle);
-        } else if (isZero(normalizedVector.getX()) && isZero(normalizedVector.getY())) {
+        } else if (isZero(normalizedAxisVector.getX()) && isZero(normalizedAxisVector.getY())) {
             return this.rotationAroundZAxis(angle);
         } else {
-            return this.rotationAroundArbitraryAxis(normalizedVector, angle);
+            return this.rotationAroundArbitraryAxis(normalizedAxisVector, angle);
         }
     }
 

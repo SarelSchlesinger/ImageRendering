@@ -11,18 +11,23 @@ class VectorTest {
     Vector v2 = new Vector(2, 4, 6);
     Vector v3 = new Vector(1, 0, 0);
     Vector v4 = new Vector(2, 2, 5);
+    Vector v5 = new Vector(0, 1, 0);
+    Vector v6 = new Vector(0, 0, 1);
+    Vector v7 = new Vector(1, 1, 1);
 
     @Test
     void testAdd() {
         assertEquals(v2, v1.add(v1), "add() is incorrect");
-        assertThrows(IllegalArgumentException.class, () -> v1.add(new Vector(-v1.getX(), -v1.getY(), -v1.getZ())));
-        assertThrows(IllegalArgumentException.class, () -> v1.add(new Vector(new Double3(-v1.getX(), -v1.getY(), -v1.getZ()))));
+        assertThrows(IllegalArgumentException.class,
+                     () -> v1.add(v1.reverse()), "vector (0,0,0) does not throw an exception");
+        assertThrows(IllegalArgumentException.class,
+                     () -> v1.add(new Vector(new Double3(-v1.getX(), -v1.getY(), -v1.getZ()))), "vector (0,0,0) does not throw an exception");
     }
 
     @Test
     void testSubtract() {
         assertEquals(v1, v2.subtract(v1), "subtract() is incorrect");
-        assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1));
+        assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1), "vector (0,0,0) does not throw an exception");
     }
 
     @Test
@@ -40,13 +45,12 @@ class VectorTest {
     void testCrossProduct() {
         assertEquals(new Vector(-1, 2, -1), v1.crossProduct(new Vector(Double3.ONE)), "crossProduct() is incorrect");
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v2));
-        assertEquals(new Vector(-1, 0, 0), new Vector(0, -1, 0).crossProduct(new Vector(0, 0, 1)), "crossProduct() is incorrect");
+        assertEquals(new Vector(-1, 0, 0), new Vector(0, -1, 0).crossProduct(v6), "crossProduct() is incorrect");
     }
 
     @Test
     void testLengthSquared() {
         assertEquals(14, v1.lengthSquared(), "lengthSquared() is incorrect");
-
     }
 
     @Test
@@ -56,7 +60,19 @@ class VectorTest {
 
     @Test
     void testNormalize() {
-        assertEquals(new Vector(1 / v1.length(), 2 / v1.length(), 3 / v1.length()), v1.normalize(), "normalize() is incorrect");
+        assertEquals(new Vector(v1.getX() / v1.length(), v1.getY() / v1.length(), v1.getZ() / v1.length()), v1.normalize(), "normalize() is incorrect");
+    }
+
+    @Test
+    void testReverse() {
+        assertEquals(new Vector(-v1.getX(), -v1.getY(), -v1.getZ()), v1.reverse(), "reverse() is incorrect");
+    }
+
+    @Test
+    void testIsParallel() {
+        assertFalse(new Vector(12, 6, 9).isParallel(new Vector(-12, 6, -9)), "isParallel() is incorrect");
+        assertTrue(v1.isParallel(v1.reverse()), "isParallel() is incorrect");
+        assertTrue(v1.isParallel(v2.reverse()), "isParallel() is incorrect");
     }
 
     @Test
@@ -64,7 +80,7 @@ class VectorTest {
         assertEquals(new Vector(0, -3, 2).normalize(), v1.findOrthogonalVector(), "findOrthogonalVector() is incorrect");
         assertEquals(new Vector(0, -6, 4).normalize(), v2.findOrthogonalVector(), "findOrthogonalVector() is incorrect");
         assertDoesNotThrow(() -> new Vector(0, 0, -1).findOrthogonalVector());
-        assertEquals(v3.normalize(), new Vector(0, 3, -5).findOrthogonalVector(), "findOrthogonalVector() is incorrect");
+        assertEquals(v3, new Vector(0, 3, -5).findOrthogonalVector(), "findOrthogonalVector() is incorrect");
         assertDoesNotThrow(() -> new Vector(0, 5, -1).findOrthogonalVector());
     }
 
@@ -92,29 +108,30 @@ class VectorTest {
         assertEquals(new Vector(1, -2, -3), v1.rotationAroundArbitraryAxis(v3, 180), "rotationAroundArbitraryAxis() is incorrect");
         assertEquals(new Vector(1, -3, 2), v1.rotationAroundArbitraryAxis(v3, 90), "rotationAroundArbitraryAxis() is incorrect");
         // TC2: Rotation around y-axis
-        assertEquals(new Vector(-1, 2, -3), v1.rotationAroundArbitraryAxis(new Vector(0, 1, 0), 180), "rotationAroundArbitraryAxis() is incorrect");
-        assertEquals(new Vector(3, 2, -1), v1.rotationAroundArbitraryAxis(new Vector(0, 1, 0), 90), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(-1, 2, -3), v1.rotationAroundArbitraryAxis(v5, 180), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(3, 2, -1), v1.rotationAroundArbitraryAxis(v5, 90), "rotationAroundArbitraryAxis() is incorrect");
         // TC3: Rotation around z-axis
-        assertEquals(new Vector(-2, -2, 5), v4.rotationAroundArbitraryAxis(new Vector(0, 0, 1), 180), "rotationAroundArbitraryAxis() is incorrect");
-        assertEquals(new Vector(-2, 2, 5), v4.rotationAroundArbitraryAxis(new Vector(0, 0, 1), 90), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(-2, -2, 5), v4.rotationAroundArbitraryAxis(v6, 180), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(-2, 2, 5), v4.rotationAroundArbitraryAxis(v6, 90), "rotationAroundArbitraryAxis() is incorrect");
         // TC4: Rotation around arbitrary axis
-        assertEquals(new Vector(4, 4, 1), v4.rotationAroundArbitraryAxis(new Vector(1, 1, 1).normalize(), 180), "rotationAroundArbitraryAxis() is incorrect");
-        assertEquals(new Vector(5, 2, 2), v4.rotationAroundArbitraryAxis(new Vector(1, 1, 1).normalize(), 120), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(4, 4, 1), v4.rotationAroundArbitraryAxis(v7.normalize(), 180), "rotationAroundArbitraryAxis() is incorrect");
+        assertEquals(new Vector(5, 2, 2), v4.rotationAroundArbitraryAxis(v7.normalize(), 120), "rotationAroundArbitraryAxis() is incorrect");
     }
 
     @Test
     void testRotateVector() {
         // TC1: Rotation around x-axis
-        assertEquals(new Vector(1, -2, -3), v1.rotateVector(v3, 180), "rotateVector() is incorrect");
-        assertEquals(new Vector(1, -3, 2), v1.rotateVector(v3, 90), "rotateVector() is incorrect");
+        assertEquals(v1.rotationAroundXAxis(180), v1.rotateVector(v3, 180), "rotateVector() is incorrect");
+        assertEquals(v1.rotationAroundXAxis(90), v1.rotateVector(v3, 90), "rotateVector() is incorrect");
         // TC2: Rotation around y-axis
-        assertEquals(new Vector(-1, 2, -3), v1.rotateVector(new Vector(0, 1, 0), 180), "rotateVector() is incorrect");
-        assertEquals(new Vector(3, 2, -1), v1.rotateVector(new Vector(0, 1, 0), 90), "rotateVector() is incorrect");
+        assertEquals(v1.rotationAroundYAxis(180), v1.rotateVector(v5, 180), "rotateVector() is incorrect");
+        assertEquals(v1.rotationAroundYAxis(90), v1.rotateVector(v5, 90), "rotateVector() is incorrect");
         // TC3: Rotation around z-axis
-        assertEquals(new Vector(-2, -2, 5), v4.rotateVector(new Vector(0, 0, 1), 180), "rotateVector() is incorrect");
-        assertEquals(new Vector(-2, 2, 5), v4.rotateVector(new Vector(0, 0, 1), 90), "rotateVector() is incorrect");
+        assertEquals(v4.rotationAroundZAxis(180), v4.rotateVector(v6, 180), "rotateVector() is incorrect");
+        assertEquals(v4.rotationAroundZAxis(90), v4.rotateVector(v6, 90), "rotateVector() is incorrect");
         // TC4: Rotation around arbitrary axis
-        assertEquals(new Vector(4, 4, 1), v4.rotateVector(new Vector(1, 1, 1).normalize(), 180), "rotateVector() is incorrect");
-        assertEquals(new Vector(5, 2, 2), v4.rotateVector(new Vector(1, 1, 1).normalize(), 120), "rotateVector() is incorrect");
+        assertEquals(v4.rotationAroundArbitraryAxis(v7.normalize(), 180), v4.rotateVector(v7.normalize(), 180), "rotateVector() is incorrect");
+        assertEquals(v4.rotationAroundArbitraryAxis(v7.normalize(), 120), v4.rotateVector(v7.normalize(), 120), "rotateVector() is incorrect");
     }
+
 }

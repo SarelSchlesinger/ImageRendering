@@ -6,6 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
+
 public class Tube extends Geometry {
 
     final Ray axisRay;
@@ -24,26 +25,24 @@ public class Tube extends Geometry {
         this.radius = radius;
     }
 
-    @Override
-    public Vector getNormal(Point point) {
-
-        double t = this.axisRay.getDirection().dotProduct(point.subtract(this.axisRay.getP0()));
-        Point pointOnRay = this.axisRay.getP0().add(this.axisRay.getDirection().scale(t));
-
-        return point.subtract(pointOnRay).normalize();
-    }
-
     public Ray getAxisRay() {
-        return axisRay;
+        return this.axisRay;
     }
 
     public double getRadius() {
-        return radius;
+        return this.radius;
     }
 
+    @Override
+    public Vector getNormal(Point point) {
+        double t = this.getAxisRay().getDirection().dotProduct(point.subtract(this.getAxisRay().getP0()));
+        Point pointOnRay = this.getAxisRay().getP0().add(this.getAxisRay().getDirection().scale(t));
+        return point.subtract(pointOnRay).normalize();
+    }
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         return null;
     }
+
 }

@@ -18,24 +18,15 @@ class TubeTest {
 
     @Test
     void testGetNormal() {
-
-        Point p1 = new Point(0, 1, 1);  // point on the surface of the tube
-        double t = p1.subtract(tube.axisRay.getP0()).dotProduct(tube.axisRay.getDirection());
-        Point pointOnRay = tube.axisRay.getP0().add(tube.axisRay.getDirection().scale(t));
-
-        // Check if the point is on the surface of the tube
-        assertEquals(tube.radius, p1.distance(pointOnRay), "the point is not on the surface of the tube");
-
-        assertEquals(new Vector(0, 1, 0).normalize(), tube.getNormal(p1), "getNormal() is incorrect");
-
+        assertEquals(new Vector(0, 1, 0), tube.getNormal(new Point(0, 1, 1)), "getNormal() is incorrect");
     }
 
     @Test
     void testFindIntersections() {
 
         Ray ray1 = new Ray(new Point(-3, -3, -3), new Vector(-2, 2.6, 3));
-        Ray ray2 = new Ray(new Point(0.5, 0.5, 0), new Vector(0.5, 0.5, 1));
-        Ray ray3 = new Ray(new Point(1, 1, 0), new Vector(-1, 0, 0));
+        Ray ray2 = new Ray(new Point(1, 1, 0), new Vector(-1, 0, 0));
+        Ray ray3 = new Ray(new Point(0.5, 0.5, 0), new Vector(0.5, 0.5, 1));
         Ray ray4 = new Ray(new Point(-3, -3, -3), new Vector(2.3, 2.6, 3));
         Ray ray5 = new Ray(new Point(-1, 0, -2), new Vector(1, 1, 2));
         Ray ray6 = new Ray(new Point(-1, 0, -2), new Vector(-2, -1, 2));
@@ -59,14 +50,13 @@ class TubeTest {
         // First Equivalence Partition - No intersection points
         // TC1: The ray origin is outside the tube and the ray does not intersect the tube
         assertNull(tube.findIntersections(ray1), "findIntersections() is incorrect");
+        // TC2: The ray origin is outside the tube and the ray tangent the tube
+        assertNull(tube.findIntersections(ray2), "findIntersections() is incorrect");
 
         // Second Equivalence Partition - One intersection point
-        // TC2: The ray origin is inside the tube and the ray intersects the tube at one point
+        // TC3: The ray origin is inside the tube and the ray intersects the tube at one point
         assertEquals(List.of(new Point(0.707106781186548, 0.707106781186548, 0.414213562373095)),
-                     tube.findIntersections(ray2), "findIntersections() is incorrect");
-        assertEquals(1, tube.findIntersections(ray2).size(), "findIntersections() is incorrect");
-        // TC3: The ray origin is outside the tube and the ray tangent the tube at one point
-        assertEquals(List.of(new Point(0, 1, 0)), tube.findIntersections(ray3), "findIntersections() is incorrect");
+                     tube.findIntersections(ray3), "findIntersections() is incorrect");
         assertEquals(1, tube.findIntersections(ray3).size(), "findIntersections() is incorrect");
 
         // Third Equivalence Partition - Two intersection points
@@ -131,4 +121,5 @@ class TubeTest {
         assertNull(tube.findIntersections(ray20), "findIntersections() is incorrect");
 
     }
+
 }
