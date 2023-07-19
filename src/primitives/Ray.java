@@ -51,12 +51,12 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return this.p0.equals(ray.p0) && this.direction.equals(ray.direction);
+        return this.getP0().equals(ray.getP0()) && this.getDirection().equals(ray.getDirection());
     }
 
     @Override
     public String toString() {
-        return "Ray{" + "p0=" + this.p0 + ", direction=" + this.direction + '}';
+        return "Ray{" + "p0=" + this.getP0() + ", direction=" + this.getDirection() + '}';
     }
 
     public Point getP0() {

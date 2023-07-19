@@ -26,11 +26,6 @@ public class Sphere extends Geometry {
         this.radius = radius;
     }
 
-    public Vector getNormal(Point point) {
-
-        return point.subtract(this.center).normalize();
-    }
-
     public Point getCenter() {
         return this.center;
     }
@@ -39,26 +34,30 @@ public class Sphere extends Geometry {
         return this.radius;
     }
 
+    public Vector getNormal(Point point) {
+        return point.subtract(this.getCenter()).normalize();
+    }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
         double tm;
         double d;
 
-        if (this.center.equals(ray.getP0())) {
+        if (this.getCenter().equals(ray.getP0())) {
             tm = 0;
             d = 0;
         } else {
-            Vector u = this.center.subtract(ray.getP0());
+            Vector u = this.getCenter().subtract(ray.getP0());
             tm = ray.getDirection().dotProduct(u);
             d = sqrt(u.lengthSquared() - tm * tm);
         }
 
-        if (d > this.radius) {
+        if (d > this.getRadius()) {
             return null;
         }
 
-        double th = sqrt(this.radius * this.radius - d * d);
+        double th = sqrt(this.getRadius() * this.getRadius() - d * d);
         double t1 = alignZero(tm + th);
         double t2 = alignZero(tm - th);
 

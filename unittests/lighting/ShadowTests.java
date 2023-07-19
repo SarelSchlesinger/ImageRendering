@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static java.awt.Color.*;
 
 import renderer.ImageWriter;
-import lighting.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -40,7 +39,7 @@ public class ShadowTests {
                 new SpotLight(
                         new Color(400, 240, 0), spotLocation, new Vector(1, 1, -3))
                         .setkLinear(1E-5).setkQuadratic(1.5E-7));
-        camera.setImageWriter(new ImageWriter(pictName,400,400)).renderImage().writeToImage();
+        camera.setImageWriter(new ImageWriter(pictName, 400, 400)).renderImage().writeToImage();
     }
 
     /**
@@ -79,7 +78,10 @@ public class ShadowTests {
     @Test
     public void sphereTriangleSpot1() {
         sphereTriangleHelper("0017shadowSphereTriangleSpot1",
-                             new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)),
+                             new Triangle(
+                                     new Point(-70, -40, 0),
+                                     new Point(-40, -70, 0),
+                                     new Point(-68, -68, -4)),
                              new Point(-88, -88, 120));
     }
 

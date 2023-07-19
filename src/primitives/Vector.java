@@ -19,7 +19,7 @@ public class Vector extends Point {
 
     public Vector(Double3 xyz) {
         super(xyz);
-        if (isZero(xyz.d1) && isZero(xyz.d2) && isZero(xyz.d3)) {
+        if (isZero(xyz.getD1()) && isZero(xyz.getD2()) && isZero(xyz.getD3())) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
     }
@@ -35,32 +35,32 @@ public class Vector extends Point {
     }
 
     public Vector add(Vector vector) {
-        return new Vector(this.xyz.add(vector.xyz));
+        return new Vector(this.getXYZ().add(vector.getXYZ()));
     }
 
     public Vector scale(double scalar) {
         if (scalar == 0) {
             throw new IllegalArgumentException("Cannot get vector of zero");
         }
-        return new Vector(this.xyz.scale(scalar));
+        return new Vector(this.getXYZ().scale(scalar));
     }
 
     public double dotProduct(Vector vector) {
-        return this.xyz.d1 * vector.xyz.d1 +
-                this.xyz.d2 * vector.xyz.d2 +
-                this.xyz.d3 * vector.xyz.d3;
+        return this.getX() * vector.getX() +
+                this.getY() * vector.getY() +
+                this.getZ() * vector.getZ();
     }
 
     public Vector crossProduct(Vector vector) {
-        return new Vector(this.xyz.d2 * vector.xyz.d3 - this.xyz.d3 * vector.xyz.d2,
-                          this.xyz.d3 * vector.xyz.d1 - this.xyz.d1 * vector.xyz.d3,
-                          this.xyz.d1 * vector.xyz.d2 - this.xyz.d2 * vector.xyz.d1);
+        return new Vector(this.getY() * vector.getZ() - this.getZ() * vector.getY(),
+                          this.getZ() * vector.getX() - this.getX() * vector.getZ(),
+                          this.getX() * vector.getY() - this.getY() * vector.getX());
     }
 
     public double lengthSquared() {
-        return this.xyz.d1 * this.xyz.d1 +
-                this.xyz.d2 * this.xyz.d2 +
-                this.xyz.d3 * this.xyz.d3;
+        return this.getX() * this.getX() +
+                this.getY() * this.getY() +
+                this.getZ() * this.getZ();
     }
 
     public double length() {
@@ -68,7 +68,7 @@ public class Vector extends Point {
     }
 
     public Vector normalize() {
-        return new Vector(this.xyz.reduce(this.length()));
+        return new Vector(this.getXYZ().reduce(this.length()));
     }
 
     public Vector reverse() {

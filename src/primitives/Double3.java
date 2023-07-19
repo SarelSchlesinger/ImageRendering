@@ -49,6 +49,18 @@ public class Double3 {
 		this.d3 = value;
 	}
 
+	public double getD1() {
+		return this.d1;
+	}
+
+	public double getD2() {
+		return this.d2;
+	}
+
+	public double getD3() {
+		return this.d3;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

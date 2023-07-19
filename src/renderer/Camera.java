@@ -67,11 +67,11 @@ public class Camera {
     public Ray constructRay(int nX, int nY, int j, int i) {
 
         // pCenter is the point in the center of the view plane
-        Point pCenter = this.cameraPosition.add(this.vTo.scale(this.distance));
+        Point pCenter = this.getCameraPosition().add(this.getvTo().scale(this.getDistance()));
 
         // pixels size
-        double ratioX = this.width / nX;
-        double ratioY = this.height / nY;
+        double ratioX = this.getWidth() / nX;
+        double ratioY = this.getHeight() / nY;
 
         // the center of P[i,j] pixel
         Point pIJ = pCenter;                            // In case that pCenter is exactly P[i,j] pixel
@@ -80,15 +80,15 @@ public class Camera {
 
 
         if (!isZero(xJ)) {
-            pIJ = pIJ.add(this.vRight.scale(xJ));
+            pIJ = pIJ.add(this.getvRight().scale(xJ));
         }
         if (!isZero(yI)) {
-            pIJ = pIJ.add(this.vUp.scale(yI));
+            pIJ = pIJ.add(this.getvUp().scale(yI));
         }
 
-        Vector vIJ = pIJ.subtract(this.cameraPosition); // vector to the center of the pixel
+        Vector vIJ = pIJ.subtract(this.getCameraPosition()); // vector to the center of the pixel
 
-        return new Ray(this.cameraPosition, vIJ);
+        return new Ray(this.getCameraPosition(), vIJ);
     }
 
     public Point getCameraPosition() {
@@ -107,30 +107,50 @@ public class Camera {
         return this.vRight;
     }
 
+    public double getHeight() {
+        return this.height;
+    }
+
+    public double getWidth() {
+        return this.width;
+    }
+
+    public double getDistance() {
+        return this.distance;
+    }
+
+    public ImageWriter getImageWriter() {
+        return this.imageWriter;
+    }
+
+    public RayTracer getRayTracer() {
+        return this.rayTracer;
+    }
+
     public Camera renderImage() {
         try {
-            if (this.cameraPosition == null) {
+            if (this.getCameraPosition() == null) {
                 throw new MissingResourceException("Missing resource value", Point.class.getName(), "");
             }
-            if (this.vUp == null || this.vRight == null || this.vTo == null) {
+            if (this.getvUp() == null || this.getvRight() == null || this.getvTo() == null) {
                 throw new MissingResourceException("Missing resource value", Vector.class.getName(), "");
             }
-            if (this.imageWriter == null) {
+            if (this.getImageWriter() == null) {
                 throw new MissingResourceException("missing resource value", ImageWriter.class.getName(), "");
             }
-            if (this.rayTracer == null) {
+            if (this.getRayTracer() == null) {
                 throw new MissingResourceException("missing resource value", RayTracer.class.getName(), "");
             }
 
             // IMAGE RENDERING
             // Pass a ray from the camera through each pixel in the view plane and set the color
-            int nX = this.imageWriter.getNx();
-            int nY = this.imageWriter.getNy();
+            int nX = this.getImageWriter().getNx();
+            int nY = this.getImageWriter().getNy();
             for (int row = 0; row < nY; row++) {
                 for (int col = 0; col < nX; col++) {
                     Ray ray = this.constructRay(nX, nY, col, row);
-                    Color pixelColor = this.rayTracer.traceRay(ray);
-                    this.imageWriter.writePixel(col, row, pixelColor);
+                    Color pixelColor = this.getRayTracer().traceRay(ray);
+                    this.getImageWriter().writePixel(col, row, pixelColor);
                 }
             }
 
@@ -141,35 +161,35 @@ public class Camera {
     }
 
     public Camera writeToImage() {
-        if (this.imageWriter == null) {
+        if (this.getImageWriter() == null) {
             throw new MissingResourceException("missing resource value", ImageWriter.class.getName(), "");
         }
-        this.imageWriter.writeToImage();
+        this.getImageWriter().writeToImage();
         return this;
     }
 
     public void printGrid(int interval, Color color) {
 
-        if (this.imageWriter == null) {
+        if (this.getImageWriter() == null) {
             throw new MissingResourceException("missing resource value", ImageWriter.class.getName(), "");
         }
 
-        int nY = this.imageWriter.getNy();
-        int nX = this.imageWriter.getNx();
+        int nY = this.getImageWriter().getNy();
+        int nX = this.getImageWriter().getNx();
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 if (i % interval == 0 || j % interval == 0) {
-                    imageWriter.writePixel(i, j, color);
+                    this.getImageWriter().writePixel(i, j, color);
                 }
             }
         }
     }
 
     public Camera rotateCamera(Ray rotationAxis, double angle) {
-        this.cameraPosition = rotationAxis.getP0().add(this.cameraPosition.subtract(rotationAxis.getP0()).rotateVector(rotationAxis.getDirection(), angle));
-        this.vTo = this.vTo.rotateVector(rotationAxis.getDirection(), angle);
-        this.vUp = this.vUp.rotateVector(rotationAxis.getDirection(), angle);
-        this.vRight = this.vTo.crossProduct(this.vUp);
+        this.cameraPosition = rotationAxis.getP0().add(this.getCameraPosition().subtract(rotationAxis.getP0()).rotateVector(rotationAxis.getDirection(), angle));
+        this.vTo = this.getvTo().rotateVector(rotationAxis.getDirection(), angle);
+        this.vUp = this.getvUp().rotateVector(rotationAxis.getDirection(), angle);
+        this.vRight = this.getvTo().crossProduct(this.getvUp());
         return this;
     }
 }

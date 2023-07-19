@@ -23,6 +23,10 @@ public class Geometries extends Intersectable {
         this.add(geometriesList);
     }
 
+    public List<Intersectable> getGeometriesList() {
+        return geometriesList;
+    }
+
     public void add(Intersectable... newGeometriesList) {
         this.geometriesList.addAll(Arrays.asList(newGeometriesList));
     }
@@ -48,7 +52,7 @@ public class Geometries extends Intersectable {
     @Override
     public String toString() {
         return "Geometries{" +
-                "geometriesList=" + geometriesList +
+                "geometriesList=" + this.getGeometriesList() +
                 "} " + super.toString();
     }
 }

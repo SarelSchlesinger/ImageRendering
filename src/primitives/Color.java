@@ -24,7 +24,7 @@ public class Color {
 	 * Default constructor - to generate Black Color (privately)
 	 */
 	private Color() {
-		rgb = Double3.ZERO;
+		this.rgb = Double3.ZERO;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Color {
 	public Color(double r, double g, double b) {
 		if (r < 0 || g < 0 || b < 0)
 			throw new IllegalArgumentException("Negative color component is illegal");
-		rgb = new Double3(r, g, b);
+		this.rgb = new Double3(r, g, b);
 	}
 
 
@@ -49,7 +49,7 @@ public class Color {
 	 * @param rgb triad of Red/Green/Blue components 
 	 */
 	private Color(Double3 rgb) {
-		if (rgb.d1 < 0 || rgb.d2 < 0 || rgb.d3 < 0)
+		if (rgb.getD1() < 0 || rgb.getD2() < 0 || rgb.getD3() < 0)
 			throw new IllegalArgumentException("Negative color component is illegal");
 		this.rgb = rgb;
 	}
@@ -60,7 +60,11 @@ public class Color {
 	 * @param other java.awt.Color's source object
 	 */
 	public Color(java.awt.Color other) {
-		rgb = new Double3(other.getRed(), other.getGreen(), other.getBlue());
+		this.rgb = new Double3(other.getRed(), other.getGreen(), other.getBlue());
+	}
+
+	public Double3 getRgb() {
+		return this.rgb;
 	}
 
 	/**
@@ -70,9 +74,9 @@ public class Color {
 	 * @return java.awt.Color object based on this Color RGB components
 	 */
 	public java.awt.Color getColor() {
-		int ir = (int) rgb.d1;
-		int ig = (int) rgb.d2;
-		int ib = (int) rgb.d3;
+		int ir = (int) this.getRgb().getD1();
+		int ig = (int) this.getRgb().getD2();
+		int ib = (int) this.getRgb().getD3();
 		return new java.awt.Color(ir > 255 ? 255 : ir, ig > 255 ? 255 : ig, ib > 255 ? 255 : ib);
 	}
 
@@ -83,13 +87,13 @@ public class Color {
 	 * @return new Color object which is a result of the operation
 	 */
 	public Color add(Color... colors) {
-		double rr = rgb.d1;
-		double rg = rgb.d2;
-		double rb = rgb.d3;
+		double rr = this.getRgb().getD1();
+		double rg = this.getRgb().getD2();
+		double rb = this.getRgb().getD3();
 		for (Color c : colors) {
-			rr += c.rgb.d1;
-			rg += c.rgb.d2;
-			rb += c.rgb.d3;
+			rr += c.getRgb().getD1();
+			rg += c.getRgb().getD2();
+			rb += c.getRgb().getD3();
 		}
 		return new Color(rr, rg, rb);
 	}
@@ -101,9 +105,9 @@ public class Color {
 	 * @return new Color object which is the result of the operation
 	 */
 	public Color scale(Double3 k) {
-		if (k.d1 < 0.0 || k.d2 < 0.0 || k.d3 < 0.0)
+		if (k.getD1() < 0.0 || k.getD2() < 0.0 || k.getD3() < 0.0)
 			throw new IllegalArgumentException("Can't scale a color by a negative number");
-		return new Color(rgb.product(k));
+		return new Color(this.getRgb().product(k));
 	}
 	
 	/**
@@ -115,7 +119,7 @@ public class Color {
 	public Color scale(double k) {
 		if (k < 0.0)
 			throw new IllegalArgumentException("Can't scale a color by a negative number");
-		return new Color(rgb.scale(k));
+		return new Color(this.getRgb().scale(k));
 	}
 
 	/**
@@ -127,7 +131,7 @@ public class Color {
 	public Color reduce(double k) {
 		if (k < 1)
 			throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
-		return new Color(rgb.reduce(k));
+		return new Color(this.getRgb().reduce(k));
 	}
 
 	/**
@@ -137,13 +141,15 @@ public class Color {
 	 * @return new Color object which is the result of the operation
 	 */
 	public Color reduce(Double3 k) {
-		if (k.d1 < 1.0 || k.d2 < 1.0 || k.d3 < 1.0)
+		if (k.getD1() < 1.0 || k.getD2() < 1.0 || k.getD3() < 1.0)
 			throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
-		return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
+		return new Color(this.getRgb().getD1() / k.getD1(),
+						 this.getRgb().getD2() / k.getD2(),
+						 this.getRgb().getD3() / k.getD3());
 	}
 
 	@Override
 	public String toString() {
-		return "rgb:" + rgb;
+		return "rgb:" + this.getRgb();
 	}
 }

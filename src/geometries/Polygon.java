@@ -82,27 +82,27 @@ public class Polygon extends Geometry {
         }
     }
 
+    public Plane getPlane() {
+        return this.plane;
+    }
+
     @Override
     public Vector getNormal(Point point) {
-        return this.plane.getNormal();
+        return this.getPlane().getNormal();
     }
 
     public List<Point> getVertices() {
         return this.vertices;
     }
 
-    public Plane getPlane() {
-        return this.plane;
-    }
-
     public int getSize() {
-        return this.vertices.size();
+        return this.getVertices().size();
     }
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
-        List<GeoPoint> intersections = this.plane.findGeoIntersections(ray);
+        List<GeoPoint> intersections = this.getPlane().findGeoIntersections(ray);
 
         // The ray does not intersect the polygon plane
         if (intersections == null) {
@@ -110,32 +110,32 @@ public class Polygon extends Geometry {
         }
 
         // rayDirection.dotProduct(Normal)
-        double firstVecDotNormal = alignZero(ray.getDirection().dotProduct(this.plane.findNormal(ray.getP0(), this.vertices.get(0), this.vertices.get(1))));
+        double firstVecDotNormal = alignZero(ray.getDirection().dotProduct(this.getPlane().findNormal(ray.getP0(), this.getVertices().get(0), this.getVertices().get(1))));
         double otherVecDotNormal;
 
-        for (int i = 1; i < this.vertices.size() - 1; i++) {
+        for (int i = 1; i < this.getVertices().size() - 1; i++) {
 
-            otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.plane.findNormal(ray.getP0(), this.vertices.get(i), this.vertices.get(i + 1))));
+            otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.getPlane().findNormal(ray.getP0(), this.getVertices().get(i), this.getVertices().get(i + 1))));
 
             if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
                 return null;
             }
         }
 
-        otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.plane.findNormal(ray.getP0(), this.vertices.get(this.getSize() - 1), this.vertices.get(0))));
+        otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.getPlane().findNormal(ray.getP0(), this.getVertices().get(this.getSize() - 1), this.getVertices().get(0))));
         if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
             return null;
         }
 
-        return List.of(new GeoPoint(this, intersections.get(0).point));
+        return List.of(new GeoPoint(this, intersections.get(0).getPoint()));
     }
 
     @Override
     public String toString() {
         return "Polygon{" +
-                "vertices=" + vertices +
-                ", plane=" + plane +
-                ", size=" + vertices.size() +
+                "vertices=" + this.getVertices() +
+                ", plane=" + this.getPlane() +
+                ", size=" + this.getVertices().size() +
                 "} " + super.toString();
     }
 }

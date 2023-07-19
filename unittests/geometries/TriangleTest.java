@@ -37,7 +37,7 @@ class TriangleTest {
 
     @Test
     void testGetNormal() {
-        assertEquals(triangle.plane.getNormal(), triangle.getNormal(p4), "getNormal() is incorrect");
+        assertEquals(triangle.getPlane().getNormal(), triangle.getNormal(p4), "getNormal() is incorrect");
     }
 
     @Test

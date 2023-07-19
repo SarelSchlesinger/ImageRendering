@@ -22,7 +22,15 @@ public class Diamond extends Geometry {
     final Color secondColor;
     List<Geometry> triangles = new ArrayList<>();
 
-    public Diamond(int sides, Point bottomPoint, double height, double distanceFromBottomPoint, double radius, Vector rotationAxis, Color firstColor, Color secondColor) {
+    public Diamond(int sides,
+                   Point bottomPoint,
+                   double height,
+                   double distanceFromBottomPoint,
+                   double radius,
+                   Vector rotationAxis,
+                   Color firstColor,
+                   Color secondColor) {
+
         if (sides <= 0) {
             throw new IllegalArgumentException("number of sides must be greater than 0");
         }
@@ -38,10 +46,10 @@ public class Diamond extends Geometry {
         this.sides = sides;
         this.bottomPoint = bottomPoint;
         this.height = height;
-        this.distanceFromBottomPoint = distanceFromBottomPoint * height;
+        this.distanceFromBottomPoint = distanceFromBottomPoint * this.height;
         this.radius = radius;
         this.rotationAxis = rotationAxis;
-        this.diamondRotationAxis = new Ray(bottomPoint, rotationAxis);
+        this.diamondRotationAxis = new Ray(this.bottomPoint, this.rotationAxis);
         this.topPoint = this.diamondRotationAxis.getPoint(this.height);
         this.firstColor = firstColor;
         this.secondColor = secondColor;
@@ -59,6 +67,7 @@ public class Diamond extends Geometry {
             Point p4 = this.topPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
                                                             .subtract(topPoint)
                                                             .rotateVector(this.rotationAxis, (360d / this.sides) * (i + 1)));
+
             Collections.addAll(this.triangles,
                                // creating the triangles at the bottom of the diamond
                                new Triangle(this.bottomPoint, p1, p2)
@@ -80,10 +89,54 @@ public class Diamond extends Geometry {
         }
     }
 
+    public int getSides() {
+        return sides;
+    }
+
+    public Point getBottomPoint() {
+        return bottomPoint;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getDistanceFromBottomPoint() {
+        return distanceFromBottomPoint;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public Vector getRotationAxis() {
+        return rotationAxis;
+    }
+
+    public Ray getDiamondRotationAxis() {
+        return diamondRotationAxis;
+    }
+
+    public Point getTopPoint() {
+        return topPoint;
+    }
+
+    public Color getFirstColor() {
+        return firstColor;
+    }
+
+    public Color getSecondColor() {
+        return secondColor;
+    }
+
+    public List<Geometry> getTriangles() {
+        return triangles;
+    }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> intersections = new ArrayList<>();
-        for (Intersectable geometry : this.triangles) {
+        for (Intersectable geometry : this.getTriangles()) {
             // Check if the point inside the area of the triangle
             Triangle triangle = (Triangle) geometry;
             Vector v1 = triangle.getVertices().get(0).subtract(ray.getP0());
@@ -113,13 +166,9 @@ public class Diamond extends Geometry {
         return intersections;
     }
 
-    public List<Geometry> getTriangles() {
-        return this.triangles;
-    }
-
     @Override
     public Vector getNormal(Point point) {
-        for (Intersectable geometry : this.triangles) {
+        for (Intersectable geometry : this.getTriangles()) {
             Triangle triangle = (Triangle) geometry;
             if (triangle.isInside(point)) {
                 return triangle.getNormal(point);

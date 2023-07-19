@@ -19,25 +19,29 @@ public class Point {
         this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3);
     }
 
+    public Double3 getXYZ() {
+        return this.xyz;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Point point = (Point) o;
-        return xyz.equals(point.xyz);
+        return this.getXYZ().equals(point.getXYZ());
     }
 
     @Override
     public String toString() {
-        return "Point{" + "xyz=" + xyz + '}';
+        return "Point{" + "xyz=" + this.getXYZ() + '}';
     }
 
     public Point add(Point point) {
-        return new Point(this.xyz.add(point.xyz));
+        return new Point(this.getXYZ().add(point.getXYZ()));
     }
 
     public Vector subtract(Point point) {
-        return new Vector(this.xyz.subtract(point.xyz));
+        return new Vector(this.getXYZ().subtract(point.getXYZ()));
     }
 
     public double distanceSquared(Point point) {
@@ -51,23 +55,20 @@ public class Point {
     }
 
     public double getX() {
-        return this.xyz.d1;
+        return this.getXYZ().getD1();
     }
 
     public double getY() {
-        return this.xyz.d2;
+        return this.getXYZ().getD2();
     }
 
     public double getZ() {
-        return this.xyz.d3;
+        return this.getXYZ().getD3();
     }
 
-    public Double3 getXYZ() {
-        return this.xyz;
-    }
 
     /**
-     * Returns the average point between two given points
+     * Returns the midpoint on the line between the two given points
      */
     public Point midpoint(Point point) {
         return new Point((this.getX() + point.getX()) / 2,

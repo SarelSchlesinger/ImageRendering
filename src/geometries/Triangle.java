@@ -34,9 +34,9 @@ public class Triangle extends Polygon {
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         // Check if the point inside the area of the triangle
-        Vector v1 = this.vertices.get(0).subtract(ray.getP0());
-        Vector v2 = this.vertices.get(1).subtract(ray.getP0());
-        Vector v3 = this.vertices.get(2).subtract(ray.getP0());
+        Vector v1 = this.getVertices().get(0).subtract(ray.getP0());
+        Vector v2 = this.getVertices().get(1).subtract(ray.getP0());
+        Vector v3 = this.getVertices().get(2).subtract(ray.getP0());
         Vector n1 = v1.crossProduct(v2).normalize();
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();
@@ -45,8 +45,8 @@ public class Triangle extends Polygon {
                       ray.getDirection().dotProduct(n2),
                       ray.getDirection().dotProduct(n3))) {
 
-            double numerator = this.plane.getNormal().dotProduct(this.plane.getP0().subtract(ray.getP0()));
-            double denominator = this.plane.getNormal().dotProduct(ray.getDirection());
+            double numerator = this.getPlane().getNormal().dotProduct(this.getPlane().getP0().subtract(ray.getP0()));
+            double denominator = this.getPlane().getNormal().dotProduct(ray.getDirection());
             if (isZero(denominator)) {
                 throw new IllegalArgumentException("denominator cannot be zero");
             }
@@ -67,9 +67,9 @@ public class Triangle extends Polygon {
     @Override
     public String toString() {
         return "Triangle{" +
-                "emission=" + emission +
-                ", vertices=" + vertices +
-                ", plane=" + plane +
+                "emission=" + this.getEmission() +
+                ", vertices=" + this.getVertices() +
+                ", plane=" + this.getPlane() +
                 "} " + super.toString();
     }
 }

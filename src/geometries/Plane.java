@@ -58,11 +58,11 @@ public class Plane extends Geometry {
 
     // normal getter
     public Vector getNormal() {
-        return normal;
+        return this.normal;
     }
 
     public Point getP0() {
-        return p0;
+        return this.p0;
     }
 
 
