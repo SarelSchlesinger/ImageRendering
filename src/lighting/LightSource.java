@@ -14,7 +14,7 @@ public interface LightSource {
      *
      * @param point is the origin of the light
      */
-    public Color getIntensity(Point point);
+    Color getIntensity(Point point);
 
     /**
      * get the light direction of the vector
@@ -22,7 +22,7 @@ public interface LightSource {
      * @param point is the starting point of the vector
      * @return direction of light
      */
-    public Vector getLight(Point point);
+    Vector getLight(Point point);
 
     double getDistance(Point point);
 }

@@ -14,7 +14,6 @@ public class Tube extends Geometry {
 
 
     public Tube(Ray axisRay, double radius) {
-
         if (axisRay == null) {
             throw new IllegalArgumentException("axisRay cannot be null");
         }

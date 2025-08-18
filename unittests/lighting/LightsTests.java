@@ -17,36 +17,40 @@ import static java.awt.Color.*;
  * @author Dan
  */
 public class LightsTests {
-    private Scene scene1 = new Scene.SceneBuilder("Test scene").build();
-    private Scene scene2 = new Scene.SceneBuilder("Test scene")
+    private Scene scene1 = new Scene.SceneBuilder("TestScene1").build();
+    private Scene scene2 = new Scene.SceneBuilder("TestScene2")
             .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15))).build();
+
     private Camera camera1 = new Camera(
             new Point(0, 0, 1000),
             new Vector(0, 0, -1),
             new Vector(0, 1, 0))
             .setViewPlaneSize(150, 150)
-            .setViewPlaneDistance(1000);
+            .setViewPlaneDistance(1000)
+            .setRaysPerPixel(400);
+
     private Camera camera2 = new Camera(
             new Point(0, 0, 1000),
             new Vector(0, 0, -1),
             new Vector(0, 1, 0))
             .setViewPlaneSize(200, 200)
-            .setViewPlaneDistance(1000);
+            .setViewPlaneDistance(1000)
+            .setRaysPerPixel(400);
 
-    private Point[] p = { // The Triangles' vertices:
-            new Point(-110, -110, -150), // the shared left-bottom
-            new Point(95, 100, -150), // the shared right-top
-            new Point(110, -110, -150), // the right-bottom
-            new Point(-75, 78, 100)}; // the left-top
-    private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-    private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
-    private Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
-    private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
-    private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
-    private Material material = new Material().setKd(0.5).setKs(0.5).setShininess(300);
+    private Point[]  p         = { // The Triangles' vertices:
+                                   new Point(-110, -110, -150), // the shared left-bottom
+                                   new Point(95, 100, -150), // the shared right-top
+                                   new Point(110, -110, -150), // the right-bottom
+                                   new Point(-75, 78, 100) }; // the left-top
+    private Point    trPL      = new Point(30, 10, -100); // Triangles test Position of Light
+    private Point    spPL      = new Point(-50, -50, 25); // Sphere test Position of Light
+    private Color    trCL      = new Color(800, 500, 250); // Triangles test Color of Light
+    private Color    spCL      = new Color(800, 500, 0); // Sphere test Color of Light
+    private Vector   trDL      = new Vector(-2, -2, -2); // Triangles test Direction of Light
+    private Material material  = new Material().setKd(0.5).setKs(0.5).setShininess(300);
     private Geometry triangle1 = new Triangle(p[0], p[1], p[2]).setMaterial(material);
     private Geometry triangle2 = new Triangle(p[0], p[1], p[3]).setMaterial(material);
-    private Geometry sphere = new Sphere(new Point(0, 0, -50), 50d)
+    private Geometry sphere    = new Sphere(new Point(0, 0, -50), 50d)
             .setEmission(new Color(BLUE).reduce(2))
             .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300));
 

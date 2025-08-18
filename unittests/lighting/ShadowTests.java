@@ -16,18 +16,19 @@ import scene.Scene;
  * @author Dan
  */
 public class ShadowTests {
-    private Intersectable sphere = new Sphere(new Point(0, 0, -200), 60d)
+    private Intersectable sphere     = new Sphere(new Point(0, 0, -200), 60d)
             .setEmission(new Color(BLUE))
             .setMaterial(
                     new Material().setKd(0.5).setKs(0.5).setShininess(30));
-    private Material trMaterial = new Material().setKd(0.5).setKs(0.5).setShininess(30);
+    private Material      trMaterial = new Material().setKd(0.5).setKs(0.5).setShininess(30);
 
-    private Scene scene = new Scene.SceneBuilder("Test scene")
+    private Scene  scene  = new Scene.SceneBuilder("Test scene")
             .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)))
             .build();
     private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
             .setViewPlaneSize(200, 200)
             .setViewPlaneDistance(1000)
+            .setRaysPerPixel(400)
             .setRayTracer(new RayTracerBasic(scene));
 
     /**
@@ -57,7 +58,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove1() {
-        sphereTriangleHelper("0015shadowSphereTriangleMove2",
+        sphereTriangleHelper("0015shadowSphereTriangleMove1",
                              new Triangle(new Point(-62, -32, 0), new Point(-32, -62, 0), new Point(-60, -60, -4)),
                              new Point(-100, -100, 200));
     }
@@ -67,7 +68,7 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove2() {
-        sphereTriangleHelper("0016shadowSphereTriangleMove1",
+        sphereTriangleHelper("0016shadowSphereTriangleMove2",
                              new Triangle(new Point(-49, -19, 0), new Point(-19, -49, 0), new Point(-47, -47, -4)),
                              new Point(-100, -100, 200));
     }

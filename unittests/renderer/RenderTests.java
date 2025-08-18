@@ -34,7 +34,8 @@ public class RenderTests {
                 .setViewPlaneDistance(100)
                 .setViewPlaneSize(500, 500)
                 .setImageWriter(new ImageWriter("0002twoColorsRenderTest", 1000, 1000))
-                .setRayTracer(new RayTracerBasic(scene));
+                .setRayTracer(new RayTracerBasic(scene))
+                .setRaysPerPixel(400);
 
 
         scene.getGeometries().add(
@@ -73,7 +74,8 @@ public class RenderTests {
                 .setViewPlaneDistance(100)
                 .setViewPlaneSize(500, 500)
                 .setImageWriter(new ImageWriter("0003multiColorsRenderTest", 1000, 1000))
-                .setRayTracer(new RayTracerBasic(scene));
+                .setRayTracer(new RayTracerBasic(scene))
+                .setRaysPerPixel(400);
 
         camera.renderImage();
         camera.printGrid(100, new Color(WHITE));

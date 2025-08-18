@@ -11,7 +11,15 @@ class PointTest {
     Point p2 = new Point(10, 11, 12);
     Point p3 = new Point(9, 9, 9);
     Point p4 = new Point(5.5, 6.5, 7.5);
+    Point p5 = new Point(1, 1, 1);
 
+    @Test
+    void testPointConstructorValidInput() {
+        // ============ 1 parameter constructor ==============
+        assertDoesNotThrow(() -> new Point(Double3.ONE));
+        assertEquals(p5, new Point(Double3.ONE));
+        assertThrows(IllegalArgumentException.class, () -> new Point(null));
+    }
 
     @Test
     void testAdd() {

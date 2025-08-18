@@ -9,10 +9,11 @@ import static primitives.Util.alignZero;
 public class PointLight extends Light implements LightSource {
 
     private final Point position;
+
     /**
      * kConstant, kLinear and kQuadratic are constants variables for attenuation
-     * kLinear -  for fixed attenuation dependent on distance
      * kConstant - for fixed attenuation non-dependent on distance
+     * kLinear -  for fixed attenuation dependent on distance
      * kQuadratic - for fixed attenuation depending on the square distance
      */
     private double kConstant = 1d;
@@ -22,24 +23,6 @@ public class PointLight extends Light implements LightSource {
     public PointLight(Color intensity, Point position) {
         super(intensity);
         this.position = position;
-    }
-
-    @Override
-    public Color getIntensity(Point point) {
-        Color Ic = this.getIntensity();
-        double distance = alignZero(point.distance(this.position));
-        double factor = this.kConstant + this.kLinear * distance + this.kQuadratic * distance * distance;
-        return Ic.reduce(factor);
-    }
-
-    @Override
-    public Vector getLight(Point point) {
-        return point.subtract(position).normalize();
-    }
-
-    @Override
-    public double getDistance(Point point) {
-        return this.position.distance(point);
     }
 
     /**
@@ -64,5 +47,39 @@ public class PointLight extends Light implements LightSource {
     public PointLight setkQuadratic(double kQuadratic) {
         this.kQuadratic = kQuadratic;
         return this;
+    }
+
+    public Point getPosition() {
+        return this.position;
+    }
+
+    public double getkConstant() {
+        return this.kConstant;
+    }
+
+    public double getkLinear() {
+        return this.kLinear;
+    }
+
+    public double getkQuadratic() {
+        return this.kQuadratic;
+    }
+
+    @Override
+    public Color getIntensity(Point point) {
+        Color Ic = this.getIntensity();
+        double distance = alignZero(point.distance(this.getPosition()));
+        double factor = this.getkConstant() + this.getkLinear() * distance + this.getkQuadratic() * distance * distance;
+        return Ic.reduce(factor);
+    }
+
+    @Override
+    public Vector getLight(Point point) {
+        return point.subtract(this.getPosition()).normalize();
+    }
+
+    @Override
+    public double getDistance(Point point) {
+        return this.getPosition().distance(point);
     }
 }

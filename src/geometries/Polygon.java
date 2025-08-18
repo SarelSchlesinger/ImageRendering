@@ -1,8 +1,10 @@
 package geometries;
 
-import java.util.List;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
-import primitives.*;
+import java.util.List;
 
 import static primitives.Util.*;
 
@@ -19,7 +21,7 @@ public class Polygon extends Geometry {
     /**
      * Associated plane in which the polygon lays
      */
-    protected Plane plane;
+    protected Plane       plane;
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -60,7 +62,7 @@ public class Polygon extends Geometry {
         Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
         Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]);
 
-        // Cross Product of any subsequent edges will throw an IllegalArgumentException
+        // Cross-Product of any subsequent edges will throw an IllegalArgumentException
         // because of Zero Vector if they connect three vertices that lay in the same
         // line.
         // Generate the direction of the polygon according to the angle between last and
@@ -70,7 +72,7 @@ public class Polygon extends Geometry {
         // the
         // polygon is convex ("kamur" in Hebrew).
         boolean positive = edge1.crossProduct(edge2).dotProduct(n) > 0;
-        for (var i = 1; i < vertices.length; ++i) {
+        for (var i = 1 ; i < vertices.length ; ++i) {
             // Test that the point is in the same plane as calculated originally
             if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(n)))
                 throw new IllegalArgumentException("All vertices of a polygon must lay in the same plane");
@@ -113,13 +115,9 @@ public class Polygon extends Geometry {
         double firstVecDotNormal = alignZero(ray.getDirection().dotProduct(this.getPlane().findNormal(ray.getP0(), this.getVertices().get(0), this.getVertices().get(1))));
         double otherVecDotNormal;
 
-        for (int i = 1; i < this.getVertices().size() - 1; i++) {
-
+        for (int i = 1 ; i < this.getVertices().size() - 1 ; i++) {
             otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.getPlane().findNormal(ray.getP0(), this.getVertices().get(i), this.getVertices().get(i + 1))));
-
-            if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {
-                return null;
-            }
+            if (!(checkSign(firstVecDotNormal, otherVecDotNormal))) {return null;}
         }
 
         otherVecDotNormal = alignZero(ray.getDirection().dotProduct(this.getPlane().findNormal(ray.getP0(), this.getVertices().get(this.getSize() - 1), this.getVertices().get(0))));
@@ -133,9 +131,9 @@ public class Polygon extends Geometry {
     @Override
     public String toString() {
         return "Polygon{" +
-                "vertices=" + this.getVertices() +
-                ", plane=" + this.getPlane() +
-                ", size=" + this.getVertices().size() +
-                "} " + super.toString();
+               "vertices=" + this.getVertices() +
+               ", plane=" + this.getPlane() +
+               ", size=" + this.getVertices().size() +
+               "} " + super.toString();
     }
 }

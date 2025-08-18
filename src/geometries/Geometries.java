@@ -24,11 +24,11 @@ public class Geometries extends Intersectable {
     }
 
     public List<Intersectable> getGeometriesList() {
-        return geometriesList;
+        return this.geometriesList;
     }
 
     public void add(Intersectable... newGeometriesList) {
-        this.geometriesList.addAll(Arrays.asList(newGeometriesList));
+        this.getGeometriesList().addAll(Arrays.asList(newGeometriesList));
     }
 
     /**
@@ -36,23 +36,20 @@ public class Geometries extends Intersectable {
      */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        List<GeoPoint> intersections = null;
+        List<GeoPoint> intersections = new LinkedList<>();
         for (Intersectable geometry : this.geometriesList) {
             List<GeoPoint> geometryIntersections = geometry.findGeoIntersections(ray, maxDistance);
             if (geometryIntersections != null) {
-                if (intersections == null) {
-                    intersections = new LinkedList<>();
-                }
                 intersections.addAll(geometryIntersections);
             }
         }
-        return intersections;
+        return intersections.isEmpty() ? null : intersections;
     }
 
     @Override
     public String toString() {
-        return "Geometries{" +
-                "geometriesList=" + this.getGeometriesList() +
-                "} " + super.toString();
+        return "Geometries{ geometriesList= " +
+               this.getGeometriesList() +
+               "} " + super.toString();
     }
 }

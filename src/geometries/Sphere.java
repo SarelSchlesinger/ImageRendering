@@ -1,6 +1,9 @@
 package geometries;
 
-import primitives.*;
+
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
@@ -84,5 +87,12 @@ public class Sphere extends Geometry {
         }
 
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Sphere{ center=" + this.getCenter() +
+                ", radius=" + this.getRadius() +
+                "} " + super.toString();
     }
 }

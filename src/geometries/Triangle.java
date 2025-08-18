@@ -27,8 +27,8 @@ public class Triangle extends Polygon {
         double thirdThirdOfTheTriangle = this.vertices.get(0).subtract(point).crossProduct(this.vertices.get(1).subtract(point)).length() / (2 * triangleArea);
 
         return firstThirdOfTheTriangle >= 0 && secondThirdOfTheTriangle >= 0 && thirdThirdOfTheTriangle >= 0 &&
-                firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1 &&
-                firstThirdOfTheTriangle + secondThirdOfTheTriangle + thirdThirdOfTheTriangle == 1;
+               firstThirdOfTheTriangle <= 1 && secondThirdOfTheTriangle <= 1 && thirdThirdOfTheTriangle <= 1 &&
+               firstThirdOfTheTriangle + secondThirdOfTheTriangle + thirdThirdOfTheTriangle == 1;
     }
 
     @Override
@@ -66,10 +66,8 @@ public class Triangle extends Polygon {
 
     @Override
     public String toString() {
-        return "Triangle{" +
-                "emission=" + this.getEmission() +
-                ", vertices=" + this.getVertices() +
-                ", plane=" + this.getPlane() +
-                "} " + super.toString();
+        return "Triangle{ vertices= " + this.getVertices() +
+               ", plane=" + this.getPlane() +
+               "} " + super.toString();
     }
 }

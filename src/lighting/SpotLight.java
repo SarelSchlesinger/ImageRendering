@@ -14,10 +14,14 @@ public class SpotLight extends PointLight {
         this.direction = direction.normalize();
     }
 
+    public Vector getDirection() {
+        return this.direction;
+    }
+
     @Override
     public Color getIntensity(Point point) {
         Color Ic = super.getIntensity(point);
-        double Lv = this.getLight(point).dotProduct(this.direction);
+        double Lv = this.getLight(point).dotProduct(this.getDirection());
         double factor = Math.max(0, Lv);
         return Ic.scale(factor);
     }

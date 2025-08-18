@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.Color;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class ImageWriter {
     private Logger logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
+
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      * @param imageName the name of jpeg file
@@ -39,11 +41,11 @@ public class ImageWriter {
         this.imageName = imageName;
         this.nX = nX;
         this.nY = nY;
-
         image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
     }
 
     // ***************** Getters/Setters ********************** //
+
     /**
      * View Plane Y-axis resolution
      *

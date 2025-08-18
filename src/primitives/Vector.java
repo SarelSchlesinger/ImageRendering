@@ -47,8 +47,8 @@ public class Vector extends Point {
 
     public double dotProduct(Vector vector) {
         return this.getX() * vector.getX() +
-                this.getY() * vector.getY() +
-                this.getZ() * vector.getZ();
+               this.getY() * vector.getY() +
+               this.getZ() * vector.getZ();
     }
 
     public Vector crossProduct(Vector vector) {
@@ -59,8 +59,8 @@ public class Vector extends Point {
 
     public double lengthSquared() {
         return this.getX() * this.getX() +
-                this.getY() * this.getY() +
-                this.getZ() * this.getZ();
+               this.getY() * this.getY() +
+               this.getZ() * this.getZ();
     }
 
     public double length() {
@@ -72,9 +72,12 @@ public class Vector extends Point {
     }
 
     public Vector reverse() {
-        return new Vector(-this.getX(), -this.getY(), -this.getZ());
+        return this.scale(-1);
     }
 
+    /**
+     * method to check if two vectors are parallel
+     */
     public Boolean isParallel(Vector vector) {
         return pow(this.dotProduct(vector), 2) == this.lengthSquared() * vector.lengthSquared();
     }
@@ -86,10 +89,12 @@ public class Vector extends Point {
         if (this.getX() > this.getZ()) {
             if (isZero(this.getX())) {
                 return new Vector(1, 0, 0);
-            } else {
+            }
+            else {
                 return new Vector(this.getY(), -this.getX(), 0).normalize();
             }
-        } else {
+        }
+        else {
             return new Vector(0, -this.getZ(), this.getY()).normalize();
         }
     }
@@ -137,22 +142,23 @@ public class Vector extends Point {
      * method to rotate a vector by a given angle around an arbitrary axis.
      * this calculation is based on <a href="https://mathworld.wolfram.com/RodriguesRotationFormula.html">...</a>
      *
-     * @param normalizedVector - the axis of the rotation
-     * @param angle            - the angle of rotation
+     * @param vector - the axis of the rotation
+     * @param angle  - the angle of rotation
      * @return a new rotated vector
      */
-    public Vector rotationAroundArbitraryAxis(Vector normalizedVector, double angle) {
+    public Vector rotationAroundArbitraryAxis(Vector vector, double angle) {
+        Vector normalizedVector = vector.normalize();
         double cos = alignZero(cos(toRadians(angle)));
         double sin = alignZero(sin(toRadians(angle)));
         return new Vector(this.getX() * (cos + pow(normalizedVector.getX(), 2) * (1 - cos))
-                                  + this.getY() * (normalizedVector.getX() * normalizedVector.getY() * (1 - cos) - normalizedVector.getZ() * sin)
-                                  + this.getZ() * (normalizedVector.getY() * sin + normalizedVector.getX() * normalizedVector.getZ() * (1 - cos)),
+                          + this.getY() * (normalizedVector.getX() * normalizedVector.getY() * (1 - cos) - normalizedVector.getZ() * sin)
+                          + this.getZ() * (normalizedVector.getY() * sin + normalizedVector.getX() * normalizedVector.getZ() * (1 - cos)),
                           this.getX() * (normalizedVector.getZ() * sin + normalizedVector.getX() * normalizedVector.getY() * (1 - cos))
-                                  + this.getY() * (cos + pow(normalizedVector.getY(), 2) * (1 - cos))
-                                  + this.getZ() * (-normalizedVector.getX() * sin + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos)),
+                          + this.getY() * (cos + pow(normalizedVector.getY(), 2) * (1 - cos))
+                          + this.getZ() * (-normalizedVector.getX() * sin + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos)),
                           this.getX() * (-normalizedVector.getY() * sin + normalizedVector.getX() * normalizedVector.getZ() * (1 - cos))
-                                  + this.getY() * (normalizedVector.getX() * sin + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos))
-                                  + this.getZ() * (cos + pow(normalizedVector.getZ(), 2) * (1 - cos)));
+                          + this.getY() * (normalizedVector.getX() * sin + normalizedVector.getY() * normalizedVector.getZ() * (1 - cos))
+                          + this.getZ() * (cos + pow(normalizedVector.getZ(), 2) * (1 - cos)));
     }
 
     /**
@@ -165,13 +171,15 @@ public class Vector extends Point {
         Vector normalizedAxisVector = axis.normalize();
         if (isZero(normalizedAxisVector.getY()) && isZero(normalizedAxisVector.getZ())) {
             return this.rotationAroundXAxis(angle);
-        } else if (isZero(normalizedAxisVector.getX()) && isZero(normalizedAxisVector.getZ())) {
+        }
+        else if (isZero(normalizedAxisVector.getX()) && isZero(normalizedAxisVector.getZ())) {
             return this.rotationAroundYAxis(angle);
-        } else if (isZero(normalizedAxisVector.getX()) && isZero(normalizedAxisVector.getY())) {
+        }
+        else if (isZero(normalizedAxisVector.getX()) && isZero(normalizedAxisVector.getY())) {
             return this.rotationAroundZAxis(angle);
-        } else {
+        }
+        else {
             return this.rotationAroundArbitraryAxis(normalizedAxisVector, angle);
         }
     }
-
 }

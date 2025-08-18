@@ -29,7 +29,7 @@ public class Plane extends Geometry {
         }
 
         this.p0 = p1;
-        this.normal = findNormal(p1,p2,p3);
+        this.normal = this.findNormal(p1, p2, p3);
 
     }
 
@@ -96,5 +96,12 @@ public class Plane extends Geometry {
         }
 
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Plane{ p0= " + this.getP0() +
+                ", normal= " + this.getNormal() +
+                "} " + super.toString();
     }
 }

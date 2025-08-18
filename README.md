@@ -10,4 +10,5 @@ An ongoing project of a graphical engine for generating moving objects in 3D usi
 
 I created a two-dimensional image in which there are various geometric shapes such as polygons, triangles, spheres and diamonds. Moving the camera around the objects produces a clip of moving objects.
 
-<img src="https://github.com/SarelSchlesinger/ImageRendering/blob/master/images/diamondsScene.gif">
+<img src="https://github.com/SarelSchlesinger/ImageRendering/blob/master/images/diamondsSceneClip_400_rays_per_pixel.gif">
+

@@ -20,7 +20,7 @@ public class Diamond extends Geometry {
     final Point topPoint;
     final Color firstColor;
     final Color secondColor;
-    List<Geometry> triangles = new ArrayList<>();
+    final List<Geometry> triangles = new ArrayList<>();
 
     public Diamond(int sides,
                    Point bottomPoint,
@@ -31,8 +31,8 @@ public class Diamond extends Geometry {
                    Color firstColor,
                    Color secondColor) {
 
-        if (sides <= 0) {
-            throw new IllegalArgumentException("number of sides must be greater than 0");
+        if (sides <= 2) {
+            throw new IllegalArgumentException("number of sides must be greater than 2");
         }
         if (height <= 0) {
             throw new IllegalArgumentException("diamond's height must be greater than 0");
@@ -55,18 +55,18 @@ public class Diamond extends Geometry {
         this.secondColor = secondColor;
 
         for (int i = 0; i < this.sides; i++) {
-            Point p1 = this.bottomPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.distanceFromBottomPoint, this.radius)
-                                                               .subtract(this.bottomPoint)
-                                                               .rotateVector(this.rotationAxis, (360d / this.sides) * i));
-            Point p2 = this.bottomPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.distanceFromBottomPoint, this.radius)
-                                                               .subtract(this.bottomPoint)
-                                                               .rotateVector(this.rotationAxis, (360d / this.sides) * (i + 1)));
-            Point p3 = this.topPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
-                                                            .subtract(topPoint)
-                                                            .rotateVector(this.rotationAxis, (360d / this.sides) * i));
-            Point p4 = this.topPoint.add(diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
-                                                            .subtract(topPoint)
-                                                            .rotateVector(this.rotationAxis, (360d / this.sides) * (i + 1)));
+            Point p1 = this.bottomPoint.add(this.diamondRotationAxis.findPointOnTheOrthogonalVector(this.distanceFromBottomPoint, this.radius)
+                                                                    .subtract(this.bottomPoint)
+                                                                    .rotateVector(this.rotationAxis, (360d / this.sides) * i));
+            Point p2 = this.bottomPoint.add(this.diamondRotationAxis.findPointOnTheOrthogonalVector(this.distanceFromBottomPoint, this.radius)
+                                                                    .subtract(this.bottomPoint)
+                                                                    .rotateVector(this.rotationAxis, (360d / this.sides) * (i + 1)));
+            Point p3 = this.topPoint.add(this.diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
+                                                                 .subtract(this.topPoint)
+                                                                 .rotateVector(this.rotationAxis, (360d / this.sides) * i));
+            Point p4 = this.topPoint.add(this.diamondRotationAxis.findPointOnTheOrthogonalVector(this.height, this.radius * 0.7)
+                                                                 .subtract(this.topPoint)
+                                                                 .rotateVector(this.rotationAxis, (360d / this.sides) * (i + 1)));
 
             Collections.addAll(this.triangles,
                                // creating the triangles at the bottom of the diamond
@@ -74,7 +74,7 @@ public class Diamond extends Geometry {
                                        .setEmission((i % 2 == 0) ? this.firstColor : this.secondColor)
                                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
                                // creating the surface at the top of the diamond
-                               new Triangle(topPoint, p3, p4)
+                               new Triangle(this.topPoint, p3, p4)
                                        .setEmission((i % 2 == 0) ? this.firstColor : this.secondColor)
                                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
                                new Triangle(p3, p4, p1.midpoint(p2))
@@ -90,47 +90,47 @@ public class Diamond extends Geometry {
     }
 
     public int getSides() {
-        return sides;
+        return this.sides;
     }
 
     public Point getBottomPoint() {
-        return bottomPoint;
+        return this.bottomPoint;
     }
 
     public double getHeight() {
-        return height;
+        return this.height;
     }
 
     public double getDistanceFromBottomPoint() {
-        return distanceFromBottomPoint;
+        return this.distanceFromBottomPoint;
     }
 
     public double getRadius() {
-        return radius;
+        return this.radius;
     }
 
     public Vector getRotationAxis() {
-        return rotationAxis;
+        return this.rotationAxis;
     }
 
     public Ray getDiamondRotationAxis() {
-        return diamondRotationAxis;
+        return this.diamondRotationAxis;
     }
 
     public Point getTopPoint() {
-        return topPoint;
+        return this.topPoint;
     }
 
     public Color getFirstColor() {
-        return firstColor;
+        return this.firstColor;
     }
 
     public Color getSecondColor() {
-        return secondColor;
+        return this.secondColor;
     }
 
     public List<Geometry> getTriangles() {
-        return triangles;
+        return this.triangles;
     }
 
     @Override

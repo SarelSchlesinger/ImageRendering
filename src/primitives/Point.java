@@ -4,9 +4,8 @@ import geometries.Polygon;
 
 public class Point {
 
-    final Double3 xyz;
-
     public static final Point ZERO = new Point(Double3.ZERO);
+    final Double3 xyz;
 
     public Point(double x, double y, double z) {
         this.xyz = new Double3(x, y, z);
@@ -46,8 +45,8 @@ public class Point {
 
     public double distanceSquared(Point point) {
         return (this.getX() - point.getX()) * (this.getX() - point.getX()) +
-                (this.getY() - point.getY()) * (this.getY() - point.getY()) +
-                (this.getZ() - point.getZ()) * (this.getZ() - point.getZ());
+               (this.getY() - point.getY()) * (this.getY() - point.getY()) +
+               (this.getZ() - point.getZ()) * (this.getZ() - point.getZ());
     }
 
     public double distance(Point point) {
@@ -88,7 +87,7 @@ public class Point {
      * Returns true if the point is located on one of the edges of the polygon
      */
     public Boolean isOnEdge(Polygon polygon) {
-        for (int i = 0; i < polygon.getSize() - 1; i++) {
+        for (int i = 0 ; i < polygon.getSize() - 1 ; i++) {
             if (this.equals(polygon.getVertices().get(i))) return true;
             if (this.isBetween(polygon.getVertices().get(i), polygon.getVertices().get(i + 1))) return true;
         }

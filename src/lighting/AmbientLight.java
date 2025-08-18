@@ -1,6 +1,7 @@
 package lighting;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Double3;
 
 /**
  * An ambient light source represents a fixed-intensity and fixed-color light source
@@ -9,7 +10,7 @@ import primitives.*;
 public class AmbientLight extends Light {
 
     /**
-     * @param Ia Illumination light
+     * @param Ia illumination light
      * @param Ka light factor
      */
     public AmbientLight(Color Ia, Double3 Ka) {

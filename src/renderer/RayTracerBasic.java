@@ -5,6 +5,7 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -32,6 +33,15 @@ public class RayTracerBasic extends RayTracer {
             return this.scene.getBackground();
         }
         return this.calcColor(this.findClosestIntersection(ray), ray);
+    }
+
+    @Override
+    public Color traceRays(List<Ray> rays) {
+        List<Color> colors = new ArrayList<>();
+        for (Ray ray : rays) {
+            colors.add(traceRay(ray));
+        }
+        return Color.avg(colors);
     }
 
     /**
@@ -65,7 +75,7 @@ public class RayTracerBasic extends RayTracer {
      * @return color includes diffusion and specular effects
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray, Double3 k) {
-        Color color = geoPoint.getGeometry().getEmission();;
+        Color color = geoPoint.getGeometry().getEmission();
         Vector normal = geoPoint.getGeometry().getNormal(geoPoint.getPoint());
         double nv = alignZero(normal.dotProduct(ray.getDirection()));
         if (nv == 0) return Color.BLACK;
@@ -200,7 +210,7 @@ public class RayTracerBasic extends RayTracer {
             lightRay = new Ray(geoPoint.getPoint(), lightDirectionFromGeoPointToLightSource, normal.scale(-1));
         }
         double maxDistance = lightSource.getDistance(geoPoint.getPoint());
-        List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay, maxDistance);
+        List<GeoPoint> intersections = this.scene.getGeometries().findGeoIntersections(lightRay, maxDistance);
         if (intersections == null) {
             return Double3.ONE;
         }

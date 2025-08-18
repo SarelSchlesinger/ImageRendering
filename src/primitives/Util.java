@@ -1,5 +1,8 @@
 package primitives;
 
+import static java.lang.Math.round;
+import static java.lang.Math.sqrt;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -70,15 +73,7 @@ public abstract class Util {
         return (n1 < 0 && n2 < 0 && n3 < 0) || (n1 > 0 && n2 > 0 && n3 > 0);
     }
 
-    /**
-     * Provide a real random number in range between min and max
-     *
-     * @param min value (included)
-     * @param max value (excluded)
-     * @return the random value
-     */
-    public static double random(double min, double max) {
-        return Math.random() * (max - min) + min;
+    public static int findNearestSquareRoot(int num) {
+        return (int) round(sqrt(num));
     }
-
 }

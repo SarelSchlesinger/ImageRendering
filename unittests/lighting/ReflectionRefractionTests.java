@@ -17,13 +17,13 @@ import scene.Scene;
  */
 public class ReflectionRefractionTests {
 
-    private Scene scene1 = new Scene.SceneBuilder("Test scene").build();
+    private Scene scene1 = new Scene.SceneBuilder("TestScene1").build();
 
-    private Scene scene2 = new Scene.SceneBuilder("Test scene")
+    private Scene scene2 = new Scene.SceneBuilder("TestScene2")
             .setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)))
             .build();
 
-    private Scene scene3 = new Scene.SceneBuilder("Test scene")
+    private Scene scene3 = new Scene.SceneBuilder("TestScene3")
             .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)))
             .build();
 
@@ -34,7 +34,8 @@ public class ReflectionRefractionTests {
     public void twoSpheres() {
         Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneSize(150, 150)
-                .setViewPlaneDistance(1000);
+                .setViewPlaneDistance(1000)
+                .setRaysPerPixel(400);
 
         scene1.getGeometries().add(
                 new Sphere(new Point(0, 0, -50), 50d).setEmission(new Color(BLUE))
@@ -59,7 +60,8 @@ public class ReflectionRefractionTests {
     public void twoSpheresOnMirrors() {
         Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneSize(2500, 2500)
-                .setViewPlaneDistance(10000);
+                .setViewPlaneDistance(10000)
+                .setRaysPerPixel(400);
 
         scene2.getGeometries().add(
                 new Sphere(new Point(-950, -900, -1000), 400d)
@@ -95,7 +97,8 @@ public class ReflectionRefractionTests {
     public void trianglesTransparentSphere() {
         Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 200)
-                .setViewPlaneDistance(1000);
+                .setViewPlaneDistance(1000)
+                .setRaysPerPixel(400);
 
         scene3.getGeometries().add(
                 new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150))

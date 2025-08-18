@@ -16,6 +16,19 @@ class VectorTest {
     Vector v7 = new Vector(1, 1, 1);
 
     @Test
+    void testVectorConstructorValidInput() {
+        // ============ 3 parameters constructor ==============
+        assertDoesNotThrow(() -> new Vector(1, 1, 1));
+        assertEquals(v7, new Vector(1, 1, 1));
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0));
+
+        // ============ 1 parameter constructor ==============
+        assertDoesNotThrow(() -> new Vector(Double3.ONE));
+        assertEquals(v7, new Vector(Double3.ONE));
+        assertThrows(IllegalArgumentException.class, () -> new Vector(Double3.ZERO));
+    }
+
+    @Test
     void testAdd() {
         assertEquals(v2, v1.add(v1), "add() is incorrect");
         assertThrows(IllegalArgumentException.class,
@@ -70,9 +83,11 @@ class VectorTest {
 
     @Test
     void testIsParallel() {
-        assertFalse(new Vector(12, 6, 9).isParallel(new Vector(-12, 6, -9)), "isParallel() is incorrect");
-        assertTrue(v1.isParallel(v1.reverse()), "isParallel() is incorrect");
-        assertTrue(v1.isParallel(v2.reverse()), "isParallel() is incorrect");
+        assertTrue(v1.isParallel(v1), "isParallel() is incorrect");
+        assertTrue(v1.isParallel(v1.scale(-1)), "isParallel() is incorrect");
+        assertTrue(v1.isParallel(v2), "isParallel() is incorrect");
+        assertTrue(v1.isParallel(v2), "isParallel() is incorrect");
+        assertFalse(v3.isParallel(v5), "isParallel() is incorrect");
     }
 
     @Test

@@ -41,7 +41,7 @@ class CameraTest {
 
     /**
      * Test method for
-     * {@link renderer.Camera#constructRay(int, int, int, int)}.
+     * {@link renderer.Camera#constructRay(int, int, double, double)}.
      */
     @Test
     void testConstructRay() {
@@ -116,4 +116,5 @@ class CameraTest {
         assertEquals(new Vector(sqrt(2d / 3), sqrt(2d / 3), -2 * sqrt(2d / 3)).normalize(), camera5.getvUp());
         assertEquals(new Vector(-1 / sqrt(3), -1 / sqrt(3), -1 / sqrt(3)), camera5.getvRight());
     }
+
 }
